@@ -1,0 +1,13 @@
+<div class="sidenav_container" [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+  <div fxLayout="column" fxLayoutGap="10px" style="height: 100%;">
+    <div>
+      <mat-nav-list>
+        <a class="mat-list-item" mat-list-item *ngFor="let page of pages"
+          [ngClass]="{'nav-link-active ': page.isSelectedPage}" (click)="selectPage(page)">
+          <i class="fa fa-solid" [ngClass]="page.icon" style="padding-right: 5px; color: #413737;"></i>
+          <span style="margin-left: 10px; color: #423d3d;">{{page.name}}</span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>

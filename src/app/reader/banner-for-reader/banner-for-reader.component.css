@@ -1,0 +1,63 @@
+.contain-banner-for-reader {
+    padding: 20px;
+}
+
+.banner-title {
+    font-weight: 550;
+    font-size: 22px;
+    color: #413f3f;
+}
+
+.banner-desscrioption {
+    margin: 10px 0;
+    color: #686767;
+    font-size: 15px;
+}
+
+.banner-for-reader {
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #C4DD9C;
+}
+
+.banner-item {
+    margin: 10px 0;
+    padding: 10px 30px;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.banner-item-left {
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.banner-item-left .category-name{
+    font-weight: 500;
+    color: #413f3f;
+}
+
+.banner-item-left .book-count{
+    font-weight: 500;
+    margin-right: 10px;
+    display: inline-block;
+    font-size: 25px;
+    color: green;
+}
+
+.banner-item-left span{
+    color: #686767;
+}
+
+.banner-item-right .book-image {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+}

@@ -1,0 +1,27 @@
+<div>
+  <app-header [sidenav]="leftSidenav"></app-header>
+
+  <mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav #leftSidenav mode="side">
+      <app-left-menu></app-left-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content [@onMainContentChange]="onSideNavChange ? 'open': 'close'">
+      <div class="main_content">
+
+        <app-banner-for-reader></app-banner-for-reader>
+
+        <div class="horizontal-line"></div>
+
+        <div style="padding: 20px">
+          <router-outlet>
+            
+          </router-outlet>
+        </div>
+        
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

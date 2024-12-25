@@ -1,0 +1,10 @@
+/* CSS for login form */
+#forgotPassLink {
+    text-decoration: none;
+}
+
+#forgotPassLink:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all linear 0.2;
+}

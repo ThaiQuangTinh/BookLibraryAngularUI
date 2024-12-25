@@ -1,0 +1,137 @@
+/* CSS for user manaement header */
+
+.book-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.book-management-header h3 {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.book-management-header p {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.book-management-header .contain-btn {
+    display: flex;
+    align-items: center;
+}
+
+.btn-for-book-management {
+    padding: 10px 20px;
+    margin-right: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.btn-for-book-management i {
+    margin-right: 4px;
+}
+
+#btnExportTemplate {
+    background-color: #f9f9f9;
+}
+
+#btnImportBook {
+    background-color: #D9D9D9;
+}
+
+#btnCreateNewBook {
+    margin-right: 0;
+    background-color: #5e5b5b;
+    color: #e7e5e5;
+}
+
+/* CSS for header table */
+.contain-table-header {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contain-table-header h3 {
+    margin-right: 10px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/* CSS for search bar */
+.right-table-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left-table-header h3 {
+    font-size: 25px;
+}   
+
+.left-table-header p {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.right-table-header #inputSearchBook {
+    min-width: 300px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.right-table-header #inputSearchBook:focus {
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.right-table-header .search-bar {
+    position: relative;
+}
+
+.right-table-header .search-bar i {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+/* CSS for table */
+.user-table tbody tr td:nth-child(1) {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    padding: 10px; 
+}
+
+.user-table tbody tr td:last-child {
+    padding-left: 10px;
+}
+
+.user-table tbody tr td:nth-child(1) img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.user-table tbody tr td:nth-child(2) span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    overflow: hidden;
+}
+
+.user-table tbody tr td i:hover {
+    cursor: pointer;
+}

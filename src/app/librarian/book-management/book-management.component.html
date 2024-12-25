@@ -1,0 +1,116 @@
+<div class="book-management-header">
+    <div class="contain-title">
+        <h3>Boook management</h3>
+        <p>Find information for all books here</p>
+    </div>
+
+    <div class="contain-btn">
+        <div (click)="onShowExportBookTemplate()" id="btnExportTemplate"
+            class="btn-for-book-management bl-button-hover">
+            <i class="fa-solid fa-download"></i>
+            <span>Boook tenmplate</span>
+        </div>
+
+        <div (click)="onShowImportBookTemplate()" id="btnImportBooks" class="btn-for-book-management bl-button-hover">
+            <i class="fa-solid fa-upload"></i>
+            <span>Inport books</span>
+        </div>
+
+        <div (click)="onShowCreateBookForm()" id="btnCreateNewBook" class="btn-for-book-management bl-button-hover">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create new book</span>
+        </div>
+    </div>
+</div>
+
+<hr class="custom-horizontal-line">
+
+<div class="contain-table-header">
+    <div class="left-table-header">
+        <h3>All</h3>
+        <p>(100)</p>
+    </div>
+
+    <div class="right-table-header">
+        <div class="search-bar">
+            <input type="text" id="inputSearchBook" placeholder="Search">
+            <i class="fa-solid fa-magnifying-glass bl-button-hover"></i>
+        </div>
+    </div>
+</div>
+
+<div class="contain-user-table">
+    <table class="user-table" id="bookTable">
+        <thead>
+            <tr>
+                <th>Book name</th>
+                <th>Loan date</th>
+                <th>Due date</th>
+                <th>Return date</th>
+                <th>Fine</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328768386i/6393242.jpg"
+                        alt="">
+                    <span>Liliana</span>
+                </td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>
+                    <i (click)="onShowEditBookForm()" class="fa-solid fa-pen-to-square"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328768386i/6393242.jpg"
+                        alt="">
+                    <span>Liliana</span>
+                </td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>
+                    <i (click)="onShowEditBookForm()" class="fa-solid fa-pen-to-square"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328768386i/6393242.jpg"
+                        alt="">
+                    <span>Liliana</span>
+                </td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>Active</td>
+                <td>0135354553</td>
+                <td>
+                    <i (click)="onShowEditBookForm()" class="fa-solid fa-pen-to-square"></i>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Create book component -->
+<app-create-book *ngIf="isCreateBookFormVisible" [isCreateBookFormVisible]="isCreateBookFormVisible"
+    (dataEvent)="onReceiveDataFromCreateBookForm($event)">
+
+</app-create-book>
+
+<!-- Edit book component -->
+<app-edit-book *ngIf="isEditBookFormVisible" [isEditBookFormVisible]="isEditBookFormVisible"
+    (dataEvent)="onReceiveDataFromEditBookForm($event)">
+
+</app-edit-book>

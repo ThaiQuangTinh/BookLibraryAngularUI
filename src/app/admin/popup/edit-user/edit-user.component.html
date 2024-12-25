@@ -1,0 +1,65 @@
+<div *ngIf="isEditUserFormVisible" class="contain-edit-user" (click)="closeEditUserForm()">
+    <form id="editUserForm" class="user-form" [formGroup]="editUserForm" (submit)="onSubmit()"
+        (click)="$event.stopPropagation()">
+        <h2 class="edit-user-title">Edit user</h2>
+
+        <div class="contain-inputs">
+            <input type="hidden" formControlName="username">
+
+            <div class="form-input-row">
+                <label for="">Fullname</label>
+                <input type="text" formControlName="fullname" class="bl-input-hover" placeholder="Please enter fullname">
+
+                <div *ngIf="editUserForm.get('fullname')?.invalid && editUserForm.get('fullname')?.touched">
+                    <span *ngIf="editUserForm.get('fullname')?.hasError('required')" class="form-validation-message">Fulname
+                        is
+                        required</span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Email</label>
+                <input type="text" formControlName="email" class="bl-input-hover" placeholder="Please enter email">
+
+                <div *ngIf="editUserForm.get('email')?.invalid && editUserForm.get('email')?.touched">
+                    <span *ngIf="editUserForm.get('email')?.hasError('required')" class="form-validation-message">Email
+                        is
+                        required</span>
+                    <span *ngIf="editUserForm.get('email')?.hasError('email')" class="form-validation-message">Email
+                        is
+                        not incorect format</span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Phone number</label>
+                <input type="text" formControlName="phoneNumber" class="bl-input-hover"
+                    placeholder="Please enter phone number">
+
+                <div *ngIf="editUserForm.get('phoneNumber')?.invalid && editUserForm.get('phoneNumber')?.touched">
+                    <span *ngIf="editUserForm.get('phoneNumber')?.hasError('required')" class="form-validation-message">
+                        Phone number is required
+                    </span>
+                    <span *ngIf="editUserForm.get('phoneNumber')?.hasError('pattern')" class="form-validation-message">
+                        Phone number must be 10 digits
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Role</label>
+                <select id="role" formControlName="role" name="role" class="bl-input-hover">
+                    <option *ngFor="let role of roles" value="{{role.id}}">
+                        {{role.name}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="conatin-btns">
+            <button (click)="closeEditUserForm()" id="btnCancelCreateUser" class="bl-button-hover">Cancel</button>
+            <button type="submit" id="btnConfirmCreateUser" class="bl-button-hover" [disabled]="editUserForm.invalid">Confirm</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,81 @@
+.contain-user-file-fun {
+    width: 500px;
+    padding: 20px 30px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.contain-user-file-fun .title {
+    font-weight: 500;
+    text-align: center;
+}
+
+.contain-icon {
+    margin: 20px 0;
+    padding: 30px;
+    background-color: #e6e3e3;
+    border-radius: 100%;
+}
+
+.contain-icon i {
+    font-size: 40px;
+    color: green;
+}
+
+/* CSS for choose file */
+.contain-choose-file {
+    margin-top: 10px;
+    width: 300px;
+    padding: 10px 20px;
+    background-color: #eeebeb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.contain-choose-file i {
+    margin-right: 6px;
+}
+
+.contain-choose-file .file-name {
+  font-size: 15px;
+}
+
+.contain-choose-file #btnChooseFile {
+    border: none;
+    outline: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background-color: #5A5A5A;
+    color: #fff;
+}
+
+/* CSS for button */
+.contain-button {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contain-button button {
+    margin-top: 20px;
+    margin-left: 20px;
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.contain-button button:nth-child(1) {
+    background-color: #5A5A5A;
+}
+
+.contain-button button:nth-child(2) {
+    background-color: #5A9D49;
+}

@@ -1,0 +1,46 @@
+<div class="contain-form" id="contain-verify-form">
+
+  <h2 id="titleAppWithForm">book library</h2>
+
+  <img id="headerLogoUser" src="{{imageUrl}}" alt="Avatar of user" />
+
+  <form action="" [formGroup]="verifyAccountForm" id="verifyUserForm" class="user-form">
+
+    <h2>{{fullName}}</h2>
+    <p>This account has not been activated. <br> Please enter the activation code sent to your email.</p>
+
+    <div class="form-input-row">
+      <label for="activationCode">* Activation code</label>
+      <input type="text" formControlName="activationCode" id="activationCode" class="bl-input-hover"
+        placeholder="Please enter the activation code" />
+
+      <div *ngIf="verifyAccountForm.get('activationCode')?.invalid && verifyAccountForm.get('activationCode')?.touched">
+        <span *ngIf="verifyAccountForm.get('activationCode')?.hasError('required')"
+          class="form-validation-message">Activation code is
+          required</span>
+        <span *ngIf="verifyAccountForm.get('activationCode')?.hasError('minlength')"
+          class="form-validation-message">Activation code must be
+          at least 6 characters
+          long</span>
+      </div>
+    </div>
+
+    <div class="contain-button">
+      <button type="submit" id="btnSendCode" class="form-button bl-button-hover" (click)="onSendCodeToVerifyAcc()">
+        Send code
+      </button>
+
+      <button *ngIf="isConfirmCodeButtonVisible" type="submit" id="btnConfirmCode" class="form-button bl-button-hover"
+        (click)="validateCodeToVerifyAcc()">
+        Confirm
+      </button>
+    </div>
+
+  </form>
+
+  <a href="/login" class="contain-redirect-login">
+    <i class="fa-solid fa-chevron-left"></i>
+    <span> Sing in with another account?</span>
+  </a>
+
+</div>

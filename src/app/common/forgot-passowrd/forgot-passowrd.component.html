@@ -1,0 +1,60 @@
+<div class="contain-form">
+
+  <h2 id="titleAppWithForm">book library</h2>
+
+  <img id="headerLogoForgotPass" src="forgot_password.png" alt="Forgot password?" />
+
+  <form action="" [formGroup]="forgotPasswordForm" id="forgotPasswordForm" class="user-form">
+
+    <h2>Forgot your password?</h2>
+    <p>Enter your email so that we can send you authentication code</p>
+
+    <div class="form-input-row">
+      <label for="email">* Email</label>
+      <input type="text" formControlName="email" id="email" class="bl-input-hover" placeholder="Please enter email" />
+
+      <div *ngIf="forgotPasswordForm.get('email')?.invalid && forgotPasswordForm.get('email')?.touched">
+        <span *ngIf="forgotPasswordForm.get('email')?.hasError('required')" class="form-validation-message">Email is
+          required</span>
+        <span *ngIf="forgotPasswordForm.get('email')?.hasError('email')" class="form-validation-message">Email is
+          not incorect format</span>
+      </div>
+    </div>
+
+    <div class="form-input-row">
+      <label for="authenticationCode">* Authentication code</label>
+      <input type="text" formControlName="authenticationCode" id="authenticationCode" class="bl-input-hover"
+        placeholder="Please enter authentication code" />
+
+      <div
+        *ngIf="forgotPasswordForm.get('authenticationCode')?.invalid && forgotPasswordForm.get('authenticationCode')?.touched">
+        <span *ngIf="forgotPasswordForm.get('authenticationCode')?.hasError('required')"
+          class="form-validation-message">Authentication is
+          required</span>
+        <span *ngIf="forgotPasswordForm.get('authenticationCode')?.hasError('minlength')"
+          class="form-validation-message">Authentication must be
+          at least 6 characters
+          long</span>
+      </div>
+    </div>
+
+    <div class="contain-button">
+      <button type="submit" id="btnSendEmail" class="form-button bl-button-hover"
+        [disabled]="forgotPasswordForm.get('email')?.invalid" (click)="sendCodeToEmail()">
+        Send email
+      </button>
+
+      <button *ngIf="isConfirmCodeButtonVisible" type="submit" id="btnConfirmCode" class="form-button bl-button-hover"
+        (click)="confirmCode()">
+        Confirm code
+      </button>
+    </div>
+
+  </form>
+
+  <a href="/login" class="contain-redirect-login">
+    <i class="fa-solid fa-chevron-left"></i>
+    <span>Back to login</span>
+  </a>
+
+</div>

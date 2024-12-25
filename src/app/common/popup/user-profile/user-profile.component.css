@@ -1,0 +1,178 @@
+.contain-user-profile {
+    width: 100%;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+#userProfile {
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+#userProfile h3 {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 30px;
+}
+
+#userProfile span {
+    display: inline-block;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #535050;
+}
+
+.contain-photo-function {
+    display: flex;
+    align-items: center;
+    min-width: 410px;
+}
+
+.photo-function-tile {
+    display: block !important;
+    font-size: 15px !important;
+    color: #858282;
+}
+
+.photo-function-description {
+    display: inline-block;
+    margin-top: -10px !important;
+    font-size: 12px !important;
+    color: #9c9898;
+}
+
+.contain-photo-function img {
+    margin-right: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+}
+
+.contain-photo-function-btn {
+    margin-top: 10px;
+}
+
+.contain-photo-function-btn button {
+    padding: 4px 8px;
+}
+
+.contain-photo-function-btn button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all linear 0.3s;
+}
+
+#btnChoosePhoto {
+    border: 1px solid #5A9D49;
+    color: #5A9D49;
+    background-color: #e4e0e9;
+}
+
+#btnRemove {
+    margin-left: 10px;
+    border: 1px solid #D43059;
+    background-color: #da6d6d;
+    color: #fff;
+}
+
+#profileForm {
+    margin-top: 20px;
+}
+
+.row-input-profile-form {
+    margin-bottom: 10px;
+}
+
+.row-input-profile-form label {
+    display: block;
+}
+
+.row-input-profile-form input {
+    margin: 12px 0;
+    padding: 10px 12px;
+    border-radius: 4px;
+    width: 100%;
+    background-color: #eeebeb;
+    border: 1px solid #ccc;
+}
+
+.row-input-profile-form input:focus {
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.contain-user-profile-btn {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#btnEditUserProfile {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #5A9D49;
+    color: #fff !important;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+#btnEditUserProfile p {
+    margin-left: 5px;
+    color: #fff !important;
+    font-size: 15px;
+}
+
+#btnEditUserProfile:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all linear 0.3s;
+}
+
+.contain-user-profile-btn button {
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+}
+
+.contain-user-profile-btn button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all linear 0.3s;
+}
+
+#btnCancelEdit {
+    border-radius: 3px;
+    margin-left: 10px;
+    background-color: #5e5858;
+    color: #fff;
+}
+
+#btnSaveProfile {
+    border-radius: 3px;
+    margin-left: 10px;
+    background-color: #5A9D49;
+    color: #eeebeb;
+}
+
+/* CSS for form validation */
+.form-validation-message {
+    color: red !important;
+}
+
+#userProfile input.ng-invalid.ng-touched {
+    border: none;
+    outline: 2px solid red;
+}

@@ -1,0 +1,131 @@
+<app-header></app-header>
+
+<div class="contain-user-management">
+    <div class="user-management-header">
+        <div class="contain-title">
+            <h3>User management</h3>
+            <p>Find information for all users here</p>
+        </div>
+
+        <div class="contain-btn">
+            <div (click)="showExportTemplateUser()" id="btnExportTemplate"
+                class="btn-for-user-management bl-button-hover">
+                <i class="fa-solid fa-download"></i>
+                <span>User tenmplate</span>
+            </div>
+
+            <div (click)="showImportTemplateUser()" id="btnImportUsers" class="btn-for-user-management bl-button-hover">
+                <i class="fa-solid fa-upload"></i>
+                <span>Inport users</span>
+            </div>
+
+            <div (click)="onShowCreateUserForm()" id="btnCreateNewUser" class="btn-for-user-management bl-button-hover">
+                <i class="fa-solid fa-plus"></i>
+                <span>Create new user</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-management-banner">
+        <div class="banner-item" *ngFor="let userRole of totalAndPercentUser">
+            <div class="banner-item-role">{{userRole.role}}</div>
+            <div class="banner-item-main">
+                <div class="role-quantity">{{userRole.total}}</div>
+                <div class="role-percent">{{userRole.percent | decimalPrecision:1}}%</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="custom-horizontal-line">
+
+    <div class="user-management-body">
+        <div class="user-management-body-title">All user (100)</div>
+
+        <div class="user-managment-func">
+            <div class="contain-tab-navigation">
+                <div class="tab-navigation">
+                    <button *ngFor="let btn of buttonTabList" id="{{btn.id}}" (click)="onChangTab(btn)"
+                        [ngClass]="btn.isActive ? 'active' : ''">
+                        {{btn.roleName}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-controls">
+                <div class="search-bar">
+                    <input type="text" id="inputSearchUser" placeholder="Search">
+                    <i class="fa-solid fa-magnifying-glass bl-button-hover"></i>
+                </div>
+
+                <button (click)="sendDataToDeleteDialog(selectedUsernames)" id="btnDeleteChoosedUser"
+                    class="bl-button-hover">Delete</button>
+            </div>
+        </div>
+
+        <div class="contain-user-table">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th class="checkbox">
+                            <input type="checkbox" id="checkbox_all" (change)="toggleAllCheckboxes()">
+                        </th>
+                        <th>Full name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Init date</th>
+                        <th>Phone number</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let user of usersData">
+                        <td class="checkbox">
+                            <input type="checkbox" [(ngModel)]="user.isChecked" (change)="updateSelectedUser(user)">
+                        </td>
+                        <td>{{user.fullname}}</td>
+                        <td>
+                            <span class="role" [ngClass]="getRoleNameById(user.roleId)">
+                                {{getRoleNameById(user.roleId)}}
+                            </span>
+                        </td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <span class="status" m [ngClass]="user.isActivated ? 'active' : 'inactive'">
+                                {{user.isActivated ? 'active' : 'inactive'}}
+                            </span>
+                        </td>
+                        <td>{{user.initDate | dateFormat}}</td>
+                        <td>{{user.phoneNumber}}</td>
+                        <td class="edit-icon" (click)="sendDataToEditUserForm(user)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </td>
+                        <td class="delete-icon" (click)="sendDataToDeleteDialog(user.username)">
+                            <i class="fa-solid fa-trash"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit user component -->
+<app-edit-user *ngIf="isEditUserFormVisible" (dataEvent)="onReceiveDataFromEditUserForm($event)"
+    [userData]="userDataToEditUserForm" [isEditUserFormVisible]="isEditUserFormVisible">
+</app-edit-user>
+
+<!-- Create new user component -->
+<app-create-new-user *ngIf="isCreateUserFormVisible" (dataEvent)="onReceiveDataFromCreateUserForm($event)"
+    [isCreateUserFormVisible]="isCreateUserFormVisible">
+
+</app-create-new-user>
+
+<!-- Delete dialog component -->
+<app-delete-dialog *ngIf="isDeleteDialogVisible" (dataEvent)="onReceiveDataFromDeleteDialog($event)"
+    [isDeleteDialogVisible]="isDeleteDialogVisible" [usernames]="usernamesDataToDeleteDialog">
+
+</app-delete-dialog>

@@ -1,0 +1,32 @@
+.sidenav_container {
+    min-width: 60px;
+    /* height: calc(100vh - 200px); */
+    height: 100vh;
+    z-index: 500 !important;
+}
+
+.sidenav_container .mat-list-item {
+    padding: 0 20px !important;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    border-top: 0.5px solid #ccc;
+}
+
+.sidenav_container .mat-list-item:nth-last-child(1) {
+    border-bottom: 0.5px solid #ccc;
+}
+
+.mdc-list {
+    padding-top: 0px !important;
+}
+
+.nav-link-active {
+    transition: all 0.3s ease;
+    background-color: #a3efa3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link-active {
+    transition: background-color 0.3s ease;
+}

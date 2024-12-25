@@ -1,0 +1,76 @@
+<div *ngIf="isUserProfileFormVisible" class="contain-user-profile" (click)="closeUserProfileForm()">
+    <form id="userProfile" [formGroup]="userProfileForm" (submit)="onSubMit()" (click)="$event.stopPropagation()">
+        <h3>Profile</h3>
+
+        <span class="photo_title">Profile photo</span>
+
+        <div class="contain-photo-function">
+            <img id="userPhoto" [src]="user.imageUrl || 'user_avatar.png'" alt="User photo">
+
+            <div *ngIf="isEdit" class="photo-function">
+                <span class="photo-function-tile">Upload your photo</span>
+                <span class="photo-function-description">Your photo should be in PNG or JPG format</span>
+                <div class="contain-photo-function-btn">
+                    <button type="button" id="btnChoosePhoto" (click)="onChoosePhoto()">Choose photo</button>
+                    <input type="file" id="photoInput" style="display: none;" (change)="onPhotoSelected($event)" />
+                </div>
+            </div>
+        </div>
+
+        <div id="profileForm" action="">
+            <!-- <input type="hidden" formControlName="username"> -->
+
+            <div class="row-input-profile-form">
+                <label for="">Fullname</label>
+                <input formControlName="fullname" type="text" value="Nine-tailed Fox">
+
+                <div *ngIf="userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched">
+                    <span *ngIf="userProfileForm.get('fullname')?.hasError('required')"
+                        class="form-validation-message">Fullname
+                        is
+                        required</span>
+                </div>
+            </div>
+
+            <div class="row-input-profile-form">
+                <label for="">Email</label>
+                <input formControlName="email" type="text" value="liliana@gmail.com">
+
+                <div *ngIf="userProfileForm.get('email')?.invalid && userProfileForm.get('email')?.touched">
+                    <span *ngIf="userProfileForm.get('email')?.hasError('required')"
+                        class="form-validation-message">Email is
+                        required</span>
+                    <span *ngIf="userProfileForm.get('email')?.hasError('email')" class="form-validation-message">Email
+                        is
+                        not incorect format</span>
+                </div>
+            </div>
+
+            <div class="row-input-profile-form">
+                <label for="">Phone number</label>
+                <input formControlName="phoneNumber" type="text" value="0339643240">
+
+                <div *ngIf="userProfileForm.get('phoneNumber')?.invalid && userProfileForm.get('phoneNumber')?.touched">
+                    <span *ngIf="userProfileForm.get('phoneNumber')?.hasError('required')"
+                        class="form-validation-message">
+                        Phone number is required
+                    </span>
+                    <span *ngIf="userProfileForm.get('phoneNumber')?.hasError('pattern')"
+                        class="form-validation-message">
+                        Phone number must be 10 digits
+                    </span>
+                </div>
+            </div>
+
+            <div class="contain-user-profile-btn">
+                <div *ngIf="!isEdit" id="btnEditUserProfile" (click)="onEditHandle()">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <p>Edit profile</p>
+                </div>
+
+                <button *ngIf="isEdit" (click)="closeUserProfileForm()" type="button" id="btnCancelEdit">Cancel</button>
+                <button *ngIf="isEdit" type="submit" id="btnSaveProfile">Save profile</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+<div class="contain-form">
+
+  <h2 id="titleAppWithForm">book library</h2>
+
+  <form [formGroup]="loginForm" (submit)="onSubmit()" action="" id="login-form" class="user-form">
+
+    <h2>Welcome back</h2>
+    <p>Enter your details to get sign in to your account</p>
+
+    <div class="form-input-row">
+      <label for="username">* Username</label>
+      <input formControlName="username" type="text" id="username" class="bl-input-hover"
+        placeholder="Please enter username" />
+
+      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        <span *ngIf="loginForm.get('username')?.hasError('required')" class="form-validation-message">Username is
+          required</span>
+      </div>
+    </div>
+
+    <div class="form-input-row">
+      <label for="password">* Password</label>
+      <div class="password-wrapper">
+        <input formControlName="password" [type]="passwordVisible ? 'text' : 'password'" id="password"
+          class="form-password-input bl-input-hover" placeholder="Please enter passsword" />
+
+        <i class="fa-regular" *ngIf="loginForm.get('password')?.value" [class.fa-eye]="!passwordVisible"
+          [class.fa-eye-slash]="passwordVisible" (click)="togglePasswordVisibility()">
+        </i>
+      </div>
+
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <span *ngIf="loginForm.get('password')?.hasError('required')" class="form-validation-message">Password is
+          required</span>
+        <span *ngIf="loginForm.get('password')?.hasError('minlength')" class="form-validation-message">Password must be
+          at least 7 characters
+          long</span>
+      </div>
+
+      <span *ngIf="loginError" class="form-validation-message"
+        style="display: block; margin-top: 10px !important;">{{loginError}}</span>
+
+    </div>
+
+    <div>
+      <a href="/forgot-password" id="forgotPassLink">Forgot password</a>
+    </div>
+
+    <div class="contain-button">
+      <button id="btnLogin" class="form-button bl-button-hover" [disabled]="loginForm.invalid"
+        type="submit">Login</button>
+    </div>
+
+  </form>
+
+</div>

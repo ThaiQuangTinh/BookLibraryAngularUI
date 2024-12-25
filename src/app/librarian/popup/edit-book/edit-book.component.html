@@ -1,0 +1,121 @@
+<div class="contain-edit-book" (click)="closeEditUserForm()">
+    <form id="editBookForm" class="user-form" [formGroup]="editBookForm" (click)="$event.stopPropagation()">
+        <h2 class="edit-book-title">Edit book</h2>
+
+        <div class="contain-inputs">
+            <div class="form-input-row">
+                <label for="">Title</label>
+                <input type="text" formControlName="title" class="bl-input-hover" placeholder="Please enter title">
+
+                <div *ngIf="editBookForm.get('title')?.invalid && editBookForm.get('title')?.touched">
+                    <span *ngIf="editBookForm.get('title')?.hasError('required')" class="form-validation-message">Title
+                        is
+                        required</span>
+                    <span *ngIf="editBookForm.get('title')?.hasError('minlength')" class="form-validation-message">Title
+                        must be
+                        at least 6 characters
+                        long</span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Category</label>
+                <select id="category" formControlName="category" name="category" class="bl-input-hover">
+                    <option *ngFor="let category of categories" value="{{category}}">
+                        {{category}}
+                    </option>
+                    <option value="3">Scicence</option>
+                </select>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Description</label>
+                <input type="text" formControlName="description" class="bl-input-hover"
+                    placeholder="Please enter description">
+
+                <div *ngIf="editBookForm.get('description')?.invalid && editBookForm.get('description')?.touched">
+                    <span *ngIf="editBookForm.get('description')?.hasError('required')"
+                        class="form-validation-message">Description is
+                        required</span>
+                    <span *ngIf="editBookForm.get('description')?.hasError('minlength')" class="form-validation-message">Description
+                        must be
+                        at least 6 characters
+                        long</span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Email</label>
+                <input type="text" formControlName="year" class="bl-input-hover" placeholder="Please enter year">
+
+                <div *ngIf="editBookForm.get('year')?.invalid && editBookForm.get('year')?.touched">
+                    <span *ngIf="editBookForm.get('year')?.hasError('required')"
+                        class="form-validation-message">Year is
+                        required</span>
+                    <span *ngIf="editBookForm.get('year')?.hasError('year')" class="form-validation-message">Year
+                        is
+                        not incorect format</span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Publisher</label>
+                <input type="text" formControlName="publisher" class="bl-input-hover"
+                    placeholder="Please enter publisher">
+
+                <div *ngIf="editBookForm.get('publisher')?.invalid && editBookForm.get('publisher')?.touched">
+                    <span *ngIf="editBookForm.get('publisher')?.hasError('required')"
+                        class="form-validation-message">
+                        Publisher is required
+                    </span>
+                    <span *ngIf="editBookForm.get('publisher')?.hasError('pattern')"
+                        class="form-validation-message">
+                        Publisher must be 10 digits
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Total copies</label>
+                <input type="text" formControlName="totalCopies" class="bl-input-hover"
+                    placeholder="Please enter totalCopies">
+
+                <div *ngIf="editBookForm.get('totalCopies')?.invalid && editBookForm.get('totalCopies')?.touched">
+                    <span *ngIf="editBookForm.get('totalCopies')?.hasError('required')"
+                        class="form-validation-message">
+                        TotalCopies is required
+                    </span>
+                    <span *ngIf="editBookForm.get('totalCopies')?.hasError('pattern')"
+                        class="form-validation-message">
+                        TotalCopies must be 10 digits
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-input-row">
+                <label for="">Author</label>
+                <input type="text" formControlName="author" class="bl-input-hover"
+                    placeholder="Please enter author">
+
+                <div *ngIf="editBookForm.get('author')?.invalid && editBookForm.get('author')?.touched">
+                    <span *ngIf="editBookForm.get('author')?.hasError('required')"
+                        class="form-validation-message">
+                        Author is required
+                    </span>
+                    <span *ngIf="editBookForm.get('author')?.hasError('pattern')"
+                        class="form-validation-message">
+                        Author must be 10 digits
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="conatin-btns">
+            <button (click)="closeEditUserForm()" id="btnCancelEditBook" class="bl-button-hover">Cancel</button>
+            <button id="btnConfirmEditBook" class="bl-button-hover"
+                [disabled]="editBookForm.invalid">Confirm</button>
+        </div>
+    </form>
+</div>
+

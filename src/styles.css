@@ -1,0 +1,59 @@
+@import 'ngx-toastr/toastr';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* CSS for global button */
+.bl-button-hover:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all linear 0.3s;
+}
+
+/* CSS for button when disabled */
+button:disabled:hover {
+    opacity: 1;
+    cursor: default;
+}
+
+/* CSS for global input */
+.bl-input-hover:hover {
+    border: 2px solid #5a9d49 !important;
+    transition: all linear .3s;
+}
+
+.bl-input-hover.ng-invalid.ng-touched:hover {
+    border: none !important;
+}
+
+/* CSS for horizontal line */
+.custom-horizontal-line {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Custom background color for overlay service */
+.custom-backdrop {
+    background-color: #212121b0;
+}
+
+/* CSS for mat-sidenav */
+::ng-deep .mat-sidenav-container {
+    position: relative;
+    z-index: 50;
+}

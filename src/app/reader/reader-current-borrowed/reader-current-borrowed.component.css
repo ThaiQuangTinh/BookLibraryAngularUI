@@ -1,0 +1,77 @@
+.current-borrwed-reader-table-header {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.left-header-title {
+    font-size: 22px !important;
+}
+
+.current-borrwed-reader-table-headerr #btnDeletFav {
+    padding: 6px 12px;
+    background-color: #df6666;  
+    border: none;
+    outline: none;
+    color: #eee8e8;
+    border-radius: 5px;
+}
+
+/* CSS for table header */
+.home-reader-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.left-header .left-header-title {
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 500;
+    color: #333;
+}
+
+.left-header .book-count {
+    margin-left: 10px;
+    display: inline-block;
+    font-size: 20px;
+    color: #8a8686;
+}
+
+.right-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* CSS for table */
+.user-table tbody tr td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    padding: 10px; 
+}
+
+.user-table tbody tr td:last-child {
+    padding-left: 10px;
+}
+
+.user-table tbody tr td:first-child img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.user-table tbody tr td:first-child span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    overflow: hidden;
+}
+

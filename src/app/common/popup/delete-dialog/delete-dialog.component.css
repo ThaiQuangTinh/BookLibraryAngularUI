@@ -1,0 +1,69 @@
+.conatain-delete-dialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-dialog {
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contain-warning-icon {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #b8b949;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.contain-warning-icon i {
+    font-size: 30px;
+    color: #b8b949;
+}
+
+.delete-dialog-title {
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.description-title {
+    margin-top: 5px;
+    color: #413d3d;
+}
+
+.contain-dialog-button {
+    margin-top: 20px;
+}
+
+.contain-dialog-button button {
+    padding: 8px 16px;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 4px;
+}
+
+#btnCancel {
+    margin-right: 20px;
+    background-color: #413d3d;
+}
+
+#btnDelete {
+    background-color: rgb(214, 77, 77);
+}
+
+

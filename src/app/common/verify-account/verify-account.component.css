@@ -1,0 +1,27 @@
+#headerLogoUser {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+#verifyUserForm h2 {
+    font-size: 30px !important;
+}
+
+#verifyUserForm p {
+    font-size: 16px !important;
+}
+
+#verifyUserForm .contain-button {
+    margin-top: -15px !important;
+}
+
+#contain-verify-form .contain-redirect-login {
+    color: #6e6a6a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#btnConfirmCode {
+    background-color: #272f25;
+}

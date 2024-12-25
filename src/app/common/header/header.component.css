@@ -1,0 +1,71 @@
+header {
+    padding: 30px 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#logoTitle {
+    margin-left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5a9d49;
+    letter-spacing: 2px;
+}
+
+#leftHeader {
+    display: flex;
+    align-items: center;
+}
+
+#leftHeader button {
+    margin-left: 10px;
+}
+
+#rightHeader {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+}
+
+#containUserInfo {
+    display: flex;
+    align-items: center;
+}
+
+#containUserInfo:hover  {
+    cursor: pointer;
+}
+
+#containUserInfo img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+#containUserInfo #fullname {
+    margin-left: 10px;
+    color: #0000009e;
+    font-weight: 500;
+}
+
+#btnLogout {
+    margin-left: 20px;
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    background-color: #70c959;
+    border-radius: 4px;
+    color: #fff5f5;
+}
+
+
+#btnLogout:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all linear 0.3s;
+}
+
+  

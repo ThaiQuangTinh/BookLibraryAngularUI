@@ -1,0 +1,41 @@
+<div class="contain-form">
+
+    <form [formGroup]="bookLendingForm" action="" id="login-form" class="user-form">
+
+        <h2>Book lending</h2>
+        <p>Allow readers to borrow books</p>
+
+        <div class="form-input-row">
+            <label for="usercode">User code</label>
+            <input formControlName="usercode" type="text" id="usercode" class="bl-input-hover"
+                placeholder="Please enter usercode" />
+
+            <div *ngIf="bookLendingForm.get('usercode')?.invalid && bookLendingForm.get('usercode')?.touched">
+                <span *ngIf="bookLendingForm.get('usercode')?.hasError('required')" class="form-validation-message">User
+                    code is
+                    required</span>
+            </div>
+        </div>
+
+        <div class="form-input-row">
+            <label for="bookCopyCode">Book copy code</label>
+            <input formControlName="bookCopyCode" type="text" id="bookCopyCode" class="bl-input-hover"
+                placeholder="Please enter bookCopyCode" />
+
+            <div
+                *ngIf="bookLendingForm.get('bookCopyCode')?.invalid && bookLendingForm.get('bookCopyCode')?.touched">
+                <span *ngIf="bookLendingForm.get('bookCopyCode')?.hasError('required')"
+                    class="form-validation-message">Book copy
+                    code is
+                    required</span>
+            </div>
+        </div>
+
+        <div class="contain-button">
+            <button id="btnLogin" class="form-button bl-button-hover" [disabled]="bookLendingForm.invalid"
+                type="submit">Confirm</button>
+        </div>
+
+    </form>
+
+</div>
