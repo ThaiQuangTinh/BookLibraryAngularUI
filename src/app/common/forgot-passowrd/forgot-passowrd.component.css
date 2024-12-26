@@ -22,6 +22,8 @@
     margin-left: 10px;
 }
 
-#btnConfirmCode {
+#btnSendEmail {
+    margin-top: 20px !important;
     background-color: #363434;
+    color: #fff;
 }

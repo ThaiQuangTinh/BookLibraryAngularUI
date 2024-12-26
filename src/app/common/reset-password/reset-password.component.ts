@@ -91,7 +91,8 @@ export class ResetPasswordComponent {
         },
         error: (err) => {
           // Handle when error
-          this.toastMessageService.showError(err.message);
+          this.router.navigate(['./forgot-password']);
+          this.toastMessageService.showError('Code is invalid');
         }
       });
     }

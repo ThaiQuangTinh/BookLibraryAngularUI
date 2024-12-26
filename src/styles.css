@@ -51,9 +51,3 @@ button:disabled:hover {
 .custom-backdrop {
     background-color: #212121b0;
 }
-
-/* CSS for mat-sidenav */
-::ng-deep .mat-sidenav-container {
-    position: relative;
-    z-index: 50;
-}

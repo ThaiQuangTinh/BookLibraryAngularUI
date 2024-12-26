@@ -1,3 +1,4 @@
+import { ExportTemplateComponent } from './common/popup/export-template/export-template.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './common/login/login.component';
@@ -15,7 +16,7 @@ import { BookManagementComponent } from './librarian/book-management/book-manage
 import { BookLendingComponent } from './librarian/book-lending/book-lending.component';
 import { BookReturnComponent } from './librarian/book-return/book-return.component';
 import { ReportComponent } from './librarian/report/report.component';
-import { DeleteDialogComponent } from './common/popup/delete-dialog/delete-dialog.component';
+import { ImportTemplateComponent } from './common/popup/import-template/import-template.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify-account', component: VerifyAccountComponent },
   // Test
-  { path: 'test', component: DeleteDialogComponent },
+  { path: 'test', component: ImportTemplateComponent },
   // Routing for admin
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   // Routing for reader

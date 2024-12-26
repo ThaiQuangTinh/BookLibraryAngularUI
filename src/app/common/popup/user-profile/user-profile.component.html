@@ -5,7 +5,7 @@
         <span class="photo_title">Profile photo</span>
 
         <div class="contain-photo-function">
-            <img id="userPhoto" [src]="user.imageUrl || 'user_avatar.png'" alt="User photo">
+            <img id="userPhoto" [src]="user.imageUrl || 'user_avatar.png'" alt="User photo" onerror="this.src='user_avatar.png'">
 
             <div *ngIf="isEdit" class="photo-function">
                 <span class="photo-function-tile">Upload your photo</span>

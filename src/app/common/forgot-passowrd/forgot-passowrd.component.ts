@@ -38,7 +38,13 @@ export class ForgotPassowrdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.forgotPasswordForm.get('authenticationCode')?.disable();
+    const email = sessionStorage.getItem('email_to_forgot_pass') || '';
+    if (email) {
+      this.forgotPasswordForm.get('email')?.setValue(email);
+      this.isConfirmCodeButtonVisible = true;
+    } else {
+      this.forgotPasswordForm.get('authenticationCode')?.disable();
+    }
   }
 
   onSubmit() {
@@ -79,6 +85,10 @@ export class ForgotPassowrdComponent implements OnInit {
   // Function to confirm code
   public confirmCode(): void {
     // Save data to session storage and redirect to reset password form (no verfify)
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
     sessionStorage.setItem('code_email', this.forgotPasswordForm.get('authenticationCode')?.value);
     this.router.navigate(['./reset-password']);
   }

@@ -14,7 +14,8 @@
                 <span>User tenmplate</span>
             </div>
 
-            <div (click)="showImportTemplateUser()" id="btnImportUsers" class="btn-for-user-management bl-button-hover">
+            <div (click)="onShowImportTemplateForm()" id="btnImportUsers"
+                class="btn-for-user-management bl-button-hover">
                 <i class="fa-solid fa-upload"></i>
                 <span>Inport users</span>
             </div>
@@ -53,7 +54,8 @@
 
             <div class="action-controls">
                 <div class="search-bar">
-                    <input type="text" id="inputSearchUser" placeholder="Search">
+                    <input type="text" id="inputSearchUser" placeholder="Search" [(ngModel)]="searchKeyword"
+                        (input)="searchUsers()">
                     <i class="fa-solid fa-magnifying-glass bl-button-hover"></i>
                 </div>
 
@@ -81,6 +83,10 @@
                 </thead>
 
                 <tbody>
+                    <tr *ngIf="usersData.length === 0">
+                        <td colspan="9" class="no-results">No matching results found.</td>
+                    </tr>
+
                     <tr *ngFor="let user of usersData">
                         <td class="checkbox">
                             <input type="checkbox" [(ngModel)]="user.isChecked" (change)="updateSelectedUser(user)">
@@ -129,3 +135,9 @@
     [isDeleteDialogVisible]="isDeleteDialogVisible" [usernames]="usernamesDataToDeleteDialog">
 
 </app-delete-dialog>
+
+<!-- Import template component -->
+<app-import-template *ngIf="isImportTemplateFormVisible" (dataEvent)="onReceiveDataFromImportTemplateForm($event)"
+    [isImportTemplateFormVisible]="isImportTemplateFormVisible">
+
+</app-import-template>

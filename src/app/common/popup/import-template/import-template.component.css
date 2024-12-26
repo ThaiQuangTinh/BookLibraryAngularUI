@@ -1,4 +1,16 @@
 .contain-user-file-fun {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-file-fun {
     width: 500px;
     padding: 20px 30px;
     background-color: #fff;
@@ -8,7 +20,7 @@
     border-radius: 10px;
 }
 
-.contain-user-file-fun .title {
+.user-file-fun .title {
     font-weight: 500;
     text-align: center;
 }

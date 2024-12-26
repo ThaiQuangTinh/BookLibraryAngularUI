@@ -1,7 +1,7 @@
 <header id="header">
 
     <div id="leftHeader">
-        <button *ngIf="user.roleId !== 1" mat-icon-button (click)="sidenav.toggle();">
+        <button *ngIf="user.roleId !== 1" mat-icon-button (click)="toggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
 
@@ -13,7 +13,7 @@
     <div id="rightHeader">
         <div id="containUserInfo" (click)="showUserProfileService()" mat-raised-button matTooltip="User information"
             matTooltipPosition="above">
-            <img [src]="user.imageUrl || 'avatar_user.png'" alt="avatar_user" id="avatar_user">
+            <img [src]="user.imageUrl || 'avatar_user.png'" alt="avatar_user" id="avatar_user" onerror="this.src='user_avatar.png'">
             <span id="fullname">{{user.fullname}}</span>
         </div>
 

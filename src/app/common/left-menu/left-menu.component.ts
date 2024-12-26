@@ -24,13 +24,13 @@ export class LeftMenuComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.roleId = +(localStorage.getItem('role_id') || 0);
+    this.roleId = +(sessionStorage.getItem('role_id') || 0);
     if (this.roleId == 3) {
       this.pages = [
-        { name: 'Home', link: 'reader-dashboard/home', icon: 'fa-house', isSelectedPage: true },
-        { name: 'Favroutie', link: 'reader-dashboard/favourite', icon: 'fa-star' },
-        { name: 'Borrowing history', link: 'reader-dashboard/borrowing-history', icon: 'fa-clock-rotate-left' },
-        { name: 'Current borrwed', link: 'reader-dashboard/current-borrowed', icon: 'fa-ticket' },
+        { name: 'Home', link: 'reader-dashboard/reader-home', icon: 'fa-house', isSelectedPage: true },
+        { name: 'Favroutie', link: 'reader-dashboard/reader-favourite', icon: 'fa-star' },
+        { name: 'Borrowing history', link: 'reader-dashboard/reader-borrowing-history', icon: 'fa-clock-rotate-left' },
+        { name: 'Current borrwed', link: 'reader-dashboard/reader-current-borrowed', icon: 'fa-ticket' },
       ];
     } else if (this.roleId == 2) {
       this.pages = [

@@ -2,7 +2,6 @@
     min-width: 60px;
     /* height: calc(100vh - 200px); */
     height: 100vh;
-    z-index: 500 !important;
 }
 
 .sidenav_container .mat-list-item {

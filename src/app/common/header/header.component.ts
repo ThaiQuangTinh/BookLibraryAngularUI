@@ -1,7 +1,7 @@
 import { ConfirmationDialogService } from '../../services/utilities/confirmation-dialog.service';
 import { Router } from '@angular/router';
 import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { UserProfileComponent } from './../popup/user-profile/user-profile.component';
+import { UserProfileComponent } from '../popup/user-profile/user-profile.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastServiceService } from '../../services/utilities/toast-service.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -38,11 +38,15 @@ export class HeaderComponent implements OnInit {
     private spinnerLoadingService: SprinnerLoadingService,
     private userManagementService: UserManagementServiceService
   ) {
-
+  
   }
 
   ngOnInit(): void {
     this.fetchUserInfor();
+  }
+
+  public toggleSidenav() {
+    this.sidenav.toggle();  
   }
 
   // Function to show user profile through overlay service
@@ -92,6 +96,7 @@ export class HeaderComponent implements OnInit {
     if (data === 'close') {
       this.isUserProfileFormVisible = false;
     } else if (data === 'update_success') {
+      this.isUserProfileFormVisible = false;
       this.fetchUserInfor();
     }
   }

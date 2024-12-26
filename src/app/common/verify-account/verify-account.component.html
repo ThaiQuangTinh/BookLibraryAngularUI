@@ -2,7 +2,7 @@
 
   <h2 id="titleAppWithForm">book library</h2>
 
-  <img id="headerLogoUser" src="{{imageUrl}}" alt="Avatar of user" />
+  <img id="headerLogoUser" src="{{imageUrl}}" alt="Avatar of user" onerror="this.src='user_avatar.png'" />
 
   <form action="" [formGroup]="verifyAccountForm" id="verifyUserForm" class="user-form">
 
@@ -26,13 +26,13 @@
     </div>
 
     <div class="contain-button">
-      <button type="submit" id="btnSendCode" class="form-button bl-button-hover" (click)="onSendCodeToVerifyAcc()">
-        Send code
-      </button>
-
       <button *ngIf="isConfirmCodeButtonVisible" type="submit" id="btnConfirmCode" class="form-button bl-button-hover"
         (click)="validateCodeToVerifyAcc()">
         Confirm
+      </button>
+
+      <button type="submit" id="btnSendCode" class="form-button bl-button-hover" (click)="onSendCodeToVerifyAcc()">
+        Send code
       </button>
     </div>
 

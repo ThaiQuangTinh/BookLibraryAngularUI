@@ -30,7 +30,13 @@ export class AdminDashboardComponent implements OnInit {
   ];
 
   // Variable constain data of user in table
+  public allUsersData: User[] = [];
+
   public usersData: User[] = [];
+
+  public selectedRole: string = '';
+
+  public searchKeyword: string = '';
 
   // List username is selected
   public selectedUsernames: string[] = [];
@@ -49,12 +55,21 @@ export class AdminDashboardComponent implements OnInit {
   // Variable to contain data of user (send to edit user form)
   public userDataToEditUserForm!: User;
 
+
   //  ==== VARIABLES FOR CREATE NEW USER FORM ====
   // Variable contain data from create user component
   public recievedDataFromCreateUserForm: any;
 
   // Varriables to show/hiden create user component
   public isCreateUserFormVisible: boolean = false;
+
+
+  //  ==== VARIABLES FOR IMPORT TEMPLATE FORM ====
+  // Variable contain data from export template component
+  public recievedDataFromImportTemplateForm: any;
+
+  // Varriables to show/hiden export template component
+  public isImportTemplateFormVisible: boolean = false;
 
 
   //  ==== VARIABLES FOR DELETE DIALOG FORM ====
@@ -77,28 +92,21 @@ export class AdminDashboardComponent implements OnInit {
   ) {
     // Active animation when page is loaded
     this.buttonTabList[0].isActive = true;
-    this.fecthtUserInfosByRoleName('view all', 1, 10);
   }
 
   // Function is called when this component has been initialized
   ngOnInit(): void {
-    this.fecthtUserInfosByRoleName('all', 1, 10);
+    this.fetchAllUsers();
+    this.onChangTab(this.buttonTabList[0]);
     this.fectchTotalCount();
   }
 
   // Function to change tab when click to button tab 
   public onChangTab(button: any): void {
-    this.buttonTabList.forEach(btn => {
-      btn.isActive = false;
-    });
-
-    this.fecthtUserInfosByRoleName(button.roleName, 1, 10);
+    this.buttonTabList.forEach(btn => btn.isActive = false);
     button.isActive = true;
-  }
-
-  // Refresh table with all role
-  public refreshTable(): void {
-    this.fecthtUserInfosByRoleName('all', 1, 10);
+    this.selectedRole = button.roleName;
+    this.updateUsersData();
   }
 
   // Function to convert role id to role name
@@ -161,7 +169,7 @@ export class AdminDashboardComponent implements OnInit {
     if (data === 'close') {
       this.isEditUserFormVisible = false;
     } else if (data === 'edit_success') {
-      this.refreshTable();
+      this.updateUsersData();
     }
   }
 
@@ -185,16 +193,32 @@ export class AdminDashboardComponent implements OnInit {
       this.isCreateUserFormVisible = false;
     } else if (data === 'create_success') {
       this.isCreateUserFormVisible = false;
-      this.refreshTable();
+      this.updateUsersData();
     }
   }
 
-  // Function to send data to edit user form (option)
+  // Function to send data to create user form (option)
   public sendDataToCreateUserForm(user: User): void {
     this.onShowEditUserForm();
     this.userDataToEditUserForm = user;
   }
 
+  // ===== FUNCTIONS FOR IMPORT TEMPLATE FORM ====
+  public onShowImportTemplateForm(): void {
+    this.isImportTemplateFormVisible = true;
+  }
+
+  // Functions to recive data from child component
+  public onReceiveDataFromImportTemplateForm(data: string): void {
+    this.recievedDataFromImportTemplateForm = data;
+
+    if (data === 'close') {
+      this.isImportTemplateFormVisible = false;
+    } else if (data === 'create_success') {
+      this.isImportTemplateFormVisible = false;
+      this.updateUsersData();
+    }
+  }
 
   // ===== FUNCTIONS FOR DELETE DIALOG FORM ====
   // Functions to show/hide delete dialog component 
@@ -217,7 +241,7 @@ export class AdminDashboardComponent implements OnInit {
       }
 
       this.isDeleteDialogVisible = false;
-      this.refreshTable();
+      this.updateUsersData();
       this.fectchTotalCount();
     }
   }
@@ -240,45 +264,27 @@ export class AdminDashboardComponent implements OnInit {
     this.overlayService.open(ImportTemplateComponent);
   }
 
-
-  // ==== FUNCTION TO SHOW CONFIRM DIALOG FOR BTN DELETE MULTIPLE ====
-  public showDiaLogForDeletMultiple(): void {
-    this.confirmDialog.confirmAction(
-      'Confirm delete users',
-      'Are you sure you want to delete users?',
-      'Delete',
-      'Cancel',
-      () => { }
-    );
-  }
-
-
-  // ==== FUNCTION TO SHOW CONFIRM DIALOG FOR BTN DELETE SINGLE ====
-  public showDiaLogForDeletSigle(): void {
-    this.confirmDialog.confirmAction(
-      'Confirm delete user',
-      'Are you sure you want to delete user?',
-      'Delete',
-      'Cancel',
-      () => { }
-    );
-  }
-
-
   // ==== FUNCTIONS TO CALL SERVICES ====
 
-  // Function to get users info
-  public fecthtUserInfosByRoleName(roleName: string, page: number, recordsPerPage: number): void {
-    // Get data
-    this.userManagementService.getUsersInfoByRoleName(roleName, page, recordsPerPage)
+  private fetchAllUsers(): void {
+    this.userManagementService.getUsersInfoByRoleName('all', 1, 100)
       .subscribe({
         next: (res) => {
-          this.usersData = res;
+          this.allUsersData = res;
+          this.updateUsersData();
         },
-        error: (err) => {
-          console.error(err.message);
-        }
+        error: (err) => console.error(err.message)
       });
+  }
+
+  public updateUsersData(): void {
+    if (this.selectedRole === 'view all') {
+      this.usersData = this.allUsersData;
+    } else {
+      this.usersData = this.allUsersData.filter(user =>
+        this.getRoleNameById(user.roleId) === this.selectedRole
+      );
+    }
   }
 
   // Function to get total count of each user type
@@ -298,5 +304,27 @@ export class AdminDashboardComponent implements OnInit {
         }
       });
   }
+
+  // Function is used to search user via fullname
+  public searchUsers(): void {
+    const keyword = this.searchKeyword.trim().toLowerCase();
+
+    if (this.selectedRole === 'view all') {
+      this.usersData = this.allUsersData.filter(user =>
+        user.fullname.toLowerCase().includes(keyword)
+      );
+    } else {
+      this.usersData = this.allUsersData.filter(user =>
+        this.getRoleNameById(user.roleId) === this.selectedRole &&
+        user.fullname.toLowerCase().includes(keyword)
+      );
+    }
+
+    if (this.usersData.length === 0) {
+      this.usersData = []; 
+    }
+  }
+
+
 
 }

@@ -54,11 +54,11 @@ export class VerifyAccountComponent implements OnInit {
     const email = sessionStorage.getItem('email');
 
     // Set imgae, fullname, .. for UI
-    if (image_url && fullname && email) {
-      this.imageUrl = `http://localhost:8100/${image_url}`.trim();
+    if (fullname && email) {
+      this.imageUrl = `http://localhost:8100${image_url}`.trim();
       this.fullName = fullname;
       this.email = email;
-    } 
+    }
   }
 
   // Function to send code to email of user, purpose to verify account
@@ -108,18 +108,20 @@ export class VerifyAccountComponent implements OnInit {
           // Navigate base on role
           switch (decodedData.roleId) {
             case 1: {
-              this.router.navigate(['./admin-dashboard']);
+              this.navigateTo('./admin-dashboard');
               break;
             }
             case 2: {
-              this.router.navigate(['./librarian-dashboard/book-management']);
+              this.navigateTo('./librarian-dashboard/book-management');
               break;
             }
             case 3: {
-              this.router.navigate(['./reader-dashboard/home']);
+              this.navigateTo('./reader-dashboard/home');
               break;
             }
           }
+
+          this.toastMessageService.showSuccess('Verify account successfully');
         },
         error: (err) => {
           this.spinnerLoadingService.close();
@@ -133,6 +135,13 @@ export class VerifyAccountComponent implements OnInit {
         }
       })
     }
+  }
+
+  // Function to navigate to component 
+  private navigateTo(url: string) {
+    this.router.navigate([`${url}`]).then(() => {
+      window.location.reload()
+    });
   }
 
 }

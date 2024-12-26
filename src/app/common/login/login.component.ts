@@ -69,15 +69,15 @@ export class LoginComponent {
         // Navigate base on role
         switch (decodedData.roleId) {
           case 1: {
-            this.router.navigate(['./admin-dashboard']);
+            this.navigateTo('/admin-dashboard');
             break;
           }
           case 2: {
-            this.router.navigate(['./librarian-dashboard/book-management']);
+            this.navigateTo('./librarian-dashboard/book-management');
             break;
           }
           case 3: {
-            this.router.navigate(['./reader-dashboard/home']);
+            this.navigateTo('./reader-dashboard/home');
             break;
           }
         }
@@ -91,6 +91,13 @@ export class LoginComponent {
           this.loginError = err;
         }
       }
+    });
+  }
+
+  // Function to navigate to component 
+  private navigateTo(url: string) {
+    this.router.navigate([`${url}`]).then(() => {
+      window.location.reload()
     });
   }
 

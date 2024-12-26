@@ -1,27 +1,29 @@
+<div *ngIf="isImportTemplateFormVisible" class="contain-user-file-fun" (click)="closeImportTemplateForm()">
 
-<div class="contain-user-file-fun">
+    <div class="user-file-fun" (click)="$event.stopPropagation()">
+        <h2 class="title">Import user list</h2>
 
-    <h2 class="title">Import user list</h2>
-
-    <div class="contain-icon">
-        <i class="fa-solid fa-upload"></i>
-    </div>
-
-    <div class="contain-choose-file">
-        <div class="choose-file-left">
-            <i class="fa-solid fa-paperclip"></i>
-            <input type="file" style="display: none;" id="fileInput" (change)="onFileChange($event)">
-            <span class="file-name">{{selectedFileName}}</span>
+        <div class="contain-icon">
+            <i class="fa-solid fa-upload"></i>
         </div>
 
-        <div class="choose-file-right">
-            <button (click)="chooseFile()" id="btnChooseFile" class="bl-button-hover">Choose file</button>
+        <div class="contain-choose-file">
+            <div class="choose-file-left">
+                <i class="fa-solid fa-paperclip"></i>
+                <input type="file" style="display: none;" id="fileInput" (change)="onFileChange($event)">
+                <span class="file-name">{{selectedFileName}}</span>
+            </div>
+
+            <div class="choose-file-right">
+                <button (click)="chooseFile()" id="btnChooseFile" class="bl-button-hover">Choose file</button>
+            </div>
+        </div>
+
+        <div class="contain-button">
+            <button (click)="closeImportTemplateForm()" class="bl-button-hover">Cancel</button>
+            <button (click)="onImportUserToApp()" class="bl-button-hover">Import</button>
         </div>
     </div>
 
-    <div class="contain-button">
-        <button (click)="hideExportUserTemplateComponent()" class="bl-button-hover">Cancel</button>
-        <button class="bl-button-hover">Import</button>
-    </div>
 
 </div>

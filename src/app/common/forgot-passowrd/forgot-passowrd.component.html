@@ -39,14 +39,14 @@
     </div>
 
     <div class="contain-button">
-      <button type="submit" id="btnSendEmail" class="form-button bl-button-hover"
-        [disabled]="forgotPasswordForm.get('email')?.invalid" (click)="sendCodeToEmail()">
-        Send email
-      </button>
-
       <button *ngIf="isConfirmCodeButtonVisible" type="submit" id="btnConfirmCode" class="form-button bl-button-hover"
         (click)="confirmCode()">
         Confirm code
+      </button>
+
+      <button type="submit" id="btnSendEmail" class="form-button bl-button-hover"
+        [disabled]="forgotPasswordForm.get('email')?.invalid" (click)="sendCodeToEmail()">
+        Send email
       </button>
     </div>
 
