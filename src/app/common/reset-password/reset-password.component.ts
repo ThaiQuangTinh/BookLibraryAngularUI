@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastServiceService } from '../../services/utilities/toast-service.service';
-import { AuthenServiceService } from '../../services/authen-service.service';
-import { Router } from '@angular/router';
-import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { SpinnerComponent } from '../spinner/spinner.component';
+import { AuthenServiceService } from '../../services/common/authen-service.service';;
 import { SprinnerLoadingService } from '../../services/utilities/sprinner-loading.service';
+import { NavigationServiceService } from '../../services/common/navigation-service.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,6 +15,7 @@ import { SprinnerLoadingService } from '../../services/utilities/sprinner-loadin
 })
 export class ResetPasswordComponent {
 
+  // Variable to store form data
   resetPasswordForm!: FormGroup;
 
   // Variables to show or hide password of two input control
@@ -28,9 +27,8 @@ export class ResetPasswordComponent {
     private fb: FormBuilder,
     private toastMessageService: ToastServiceService,
     private authenService: AuthenServiceService,
-    private router: Router,
-    private overlayService: OverlayServiceService,
-    private spinnerLoadingService: SprinnerLoadingService
+    private spinnerLoadingService: SprinnerLoadingService,
+    private navigationService: NavigationServiceService
   ) {
     // Initial form
     this.resetPasswordForm = this.fb.group({
@@ -86,12 +84,12 @@ export class ResetPasswordComponent {
 
           setTimeout(() => {
             this.spinnerLoadingService.close();
-            this.router.navigate(['./login']);
+            this.navigationService.navigate('./login');
           }, 2000);
         },
         error: (err) => {
           // Handle when error
-          this.router.navigate(['./forgot-password']);
+          this.navigationService.navigate('./forgot-password');
           this.toastMessageService.showError('Code is invalid');
         }
       });

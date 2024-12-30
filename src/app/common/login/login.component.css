@@ -1,6 +1,7 @@
 /* CSS for login form */
 #forgotPassLink {
     text-decoration: none;
+    color: blue;
 }
 
 #forgotPassLink:hover {

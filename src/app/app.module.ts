@@ -14,8 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { CreateNewUserComponent } from './admin/popup/create-new-user/create-new-user.component';
-import { EditUserComponent } from './admin/popup/edit-user/edit-user.component';
+import { CreateNewUserComponent } from './admin/components/create-new-user/create-new-user.component';
+import { EditUserComponent } from './admin/components/edit-user/edit-user.component';
 import { UserProfileComponent } from './common/popup/user-profile/user-profile.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ImportTemplateComponent } from './common/popup/import-template/import-template.component';
@@ -26,7 +26,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { VerifyAccountComponent } from './common/verify-account/verify-account.component';
-import { SpinnerComponent } from './common/spinner/spinner.component';
+import { SpinnerComponent } from './services/spinner/spinner.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReaderDashboardComponent } from './reader/reader-dashboard/reader-dashboard.component';
 import { ReaderHomeComponent } from './reader/reader-home/reader-home.component';
@@ -45,7 +45,11 @@ import { CreateBookComponent } from './librarian/popup/create-book/create-book.c
 import { EditBookComponent } from './librarian/popup/edit-book/edit-book.component';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { DecimalPrecisionPipe } from './pipe/decimal-precision.pipe';
-import { DeleteDialogComponent } from './common/popup/delete-dialog/delete-dialog.component';  
+import { DeleteDialogComponent } from './common/popup/delete-dialog/delete-dialog.component';
+import { AdminBannerComponent } from './admin/components/admin-banner/admin-banner.component';
+import { UserManagementTableComponent } from './admin/components/user-management-table/user-management-table.component';
+import { ItemManagementActionsComponent } from './common/item-management-actions/item-management-actions.component';
+import { BaseOverlayComponent } from './common/base-overlay/base-overlay.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +83,10 @@ import { DeleteDialogComponent } from './common/popup/delete-dialog/delete-dialo
     DateFormatPipe,
     DecimalPrecisionPipe,
     DeleteDialogComponent,
+    AdminBannerComponent,
+    UserManagementTableComponent,
+    ItemManagementActionsComponent,
+    BaseOverlayComponent,
   ],
   imports: [
     BrowserModule,

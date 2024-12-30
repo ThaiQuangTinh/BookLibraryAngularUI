@@ -17,6 +17,7 @@ import { BookLendingComponent } from './librarian/book-lending/book-lending.comp
 import { BookReturnComponent } from './librarian/book-return/book-return.component';
 import { ReportComponent } from './librarian/report/report.component';
 import { ImportTemplateComponent } from './common/popup/import-template/import-template.component';
+import { CreateNewUserComponent } from './admin/components/create-new-user/create-new-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify-account', component: VerifyAccountComponent },
   // Test
-  { path: 'test', component: ImportTemplateComponent },
+  { path: 'test', component: CreateNewUserComponent },
   // Routing for admin
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   // Routing for reader

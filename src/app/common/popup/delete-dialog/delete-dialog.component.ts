@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-delete-dialog',

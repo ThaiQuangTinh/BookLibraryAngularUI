@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OverlayServiceService } from '../../../services/utilities/overlay-service.service';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
 import { User } from '../../../models/user.model';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-user-profile',

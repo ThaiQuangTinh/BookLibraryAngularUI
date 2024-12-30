@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastServiceService } from '../../services/utilities/toast-service.service';
-import { Router } from '@angular/router';
-import { EmailServiceService } from '../../services/email-service.service';
-import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { AuthenServiceService } from '../../services/authen-service.service';
+import { EmailServiceService } from '../../services/common/email-service.service';
+import { AuthenServiceService } from '../../services/common/authen-service.service';
 import { SprinnerLoadingService } from '../../services/utilities/sprinner-loading.service';
+import { NavigationServiceService } from '../../services/common/navigation-service.service';
 
 @Component({
   selector: 'app-verify-account',
@@ -31,12 +30,11 @@ export class VerifyAccountComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private emailService: EmailServiceService,
     private authenService: AuthenServiceService,
     private toastMessageService: ToastServiceService,
-    private overlayService: OverlayServiceService,
-    private spinnerLoadingService: SprinnerLoadingService
+    private spinnerLoadingService: SprinnerLoadingService,
+    public navigationService: NavigationServiceService
   ) {
     // Initial form
     this.verifyAccountForm = this.fb.group({
@@ -44,6 +42,7 @@ export class VerifyAccountComponent implements OnInit {
     });
   }
 
+  // Initial data
   ngOnInit(): void {
     // Disable input to enter code
     this.verifyAccountForm.get('activationCode')?.disable();
@@ -55,7 +54,7 @@ export class VerifyAccountComponent implements OnInit {
 
     // Set imgae, fullname, .. for UI
     if (fullname && email) {
-      this.imageUrl = `http://localhost:8100${image_url}`.trim();
+      this.imageUrl = `http://localhost:8100${image_url}`;
       this.fullName = fullname;
       this.email = email;
     }
@@ -68,7 +67,7 @@ export class VerifyAccountComponent implements OnInit {
     this.isConfirmCodeButtonVisible = true;
 
     // Show spinner loading while send code to email of user
-    this.spinnerLoadingService.open('Sending code, please wait');
+    this.spinnerLoadingService.open('Sending code, please wait...');
 
     // Call service to send code
     this.emailService.senCodeToEmail(this.email).subscribe({
@@ -105,22 +104,8 @@ export class VerifyAccountComponent implements OnInit {
           const decodedData = this.authenService.decodeToken(res!.token);
           this.authenService.saveToken(res!.token, decodedData);
 
-          // Navigate base on role
-          switch (decodedData.roleId) {
-            case 1: {
-              this.navigateTo('./admin-dashboard');
-              break;
-            }
-            case 2: {
-              this.navigateTo('./librarian-dashboard/book-management');
-              break;
-            }
-            case 3: {
-              this.navigateTo('./reader-dashboard/home');
-              break;
-            }
-          }
-
+          // navigate to dashboard base on role id
+          this.navigationService.navigateByRoleId(decodedData.roleId);
           this.toastMessageService.showSuccess('Verify account successfully');
         },
         error: (err) => {
@@ -133,15 +118,9 @@ export class VerifyAccountComponent implements OnInit {
             this.toastMessageService.showError('Unauthorized');
           }
         }
-      })
+      });
     }
   }
 
-  // Function to navigate to component 
-  private navigateTo(url: string) {
-    this.router.navigate([`${url}`]).then(() => {
-      window.location.reload()
-    });
-  }
 
 }

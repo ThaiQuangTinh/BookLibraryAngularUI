@@ -1,22 +1,18 @@
 import { User } from './../../../models/user.model';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { OverlayServiceService } from '../../../services/utilities/overlay-service.service';
+import { Component } from '@angular/core';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
-import { ExcelReaderService } from '../../../services/excel-reader.service';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
+import { ExcelReaderService } from '../../../services/common/excel-reader.service';
+import { BaseOverlayComponent } from '../../base-overlay/base-overlay.component';
+import { FormName } from '../../../enums/form-name.enum';
+import { FormAction } from '../../../enums/form-action.enum';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-import-template',
   templateUrl: './import-template.component.html',
   styleUrl: './import-template.component.css'
 })
-export class ImportTemplateComponent {
-
-  // Share data to admin dashboard component
-  @Output() dataEvent: EventEmitter<any> = new EventEmitter();
-
-  // Inputs decorator for receive data from admin dashboard component
-  @Input() isImportTemplateFormVisible: boolean = false;
+export class ImportTemplateComponent extends BaseOverlayComponent {
 
   // Variable contain name of file 
   selectedFileName: string = 'No file chosen';
@@ -25,12 +21,16 @@ export class ImportTemplateComponent {
   users: User[] = [];
 
   constructor(
-    private overlayService: OverlayServiceService,
     private toastMessageService: ToastServiceService,
     private excelReaderService: ExcelReaderService,
     private userManagementService: UserManagementServiceService
   ) {
+    super();
+  }
 
+  // Function to close form
+  public override closeForm(): void {
+    this.dataEvent.emit({ formName: FormName.AdminImportUsers, action: FormAction.CLOSE });
   }
 
   // Function to check change of input file
@@ -55,12 +55,6 @@ export class ImportTemplateComponent {
   // Function to choose file
   public chooseFile(): void {
     document.getElementById('fileInput')?.click();
-  }
-
-  // Function to close this form
-  public closeImportTemplateForm(): void {
-    this.isImportTemplateFormVisible = false;
-    this.dataEvent.emit('close');
   }
 
   // Function to call service to get data from excel file
@@ -95,8 +89,6 @@ export class ImportTemplateComponent {
     this.userManagementService.createNewUser(this.users)
       .subscribe({
         next: (res) => {
-          this.isImportTemplateFormVisible = false;
-          this.dataEvent.emit('close');
           this.toastMessageService.showSuccess('Import user successfully');
         },
         error: (err) => {

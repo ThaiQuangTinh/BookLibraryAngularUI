@@ -57,6 +57,7 @@
     width: 120px;
     height: 120px;
     border-radius: 14px;
+    object-fit: cover;
 }
 
 .contain-photo-function-btn {

@@ -1,15 +1,27 @@
 export class User {
-  fullname: string;
-  phoneNumber: string;
-  roleId: number;
-  updatedAt: Date;
-  isActivated: boolean;
-  initDate: Date;
-  delFlg: boolean;
-  username: string;
-  email: string;
-  imageUrl: string;
-  isChecked?: boolean
+
+  public fullname: string;
+  
+  public phoneNumber: string;
+  
+  public roleId: number;
+  
+  public updatedAt: Date;
+  
+  public isActivated: boolean;
+  
+  public initDate: Date;
+  
+  public delFlg: boolean;
+  
+  public username: string;
+  
+  public email: string;
+  
+  public imageUrl: string;
+  
+  public isChecked?: boolean
+  
 
   constructor(data?: Partial<User>) {
     this.fullname = data?.fullname || '';
@@ -24,4 +36,5 @@ export class User {
     this.imageUrl = 'http://localhost:8100' + data?.imageUrl || '';
     this.isChecked = data?.isChecked || false;
   }
+  
 }

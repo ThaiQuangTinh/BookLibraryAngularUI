@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OverlayServiceService } from './overlay-service.service';
-import { SpinnerComponent } from '../../common/spinner/spinner.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Injectable({
   providedIn: 'root'

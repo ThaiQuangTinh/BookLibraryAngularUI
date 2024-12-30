@@ -11,7 +11,11 @@ export class AuthenServiceService {
   // Define base api url for all api
   private baseApiUrl: string = 'http://localhost:8100/v3';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { 
+    
+  }
 
   // Service to login, return token if success
   public login(username: string, password: string): Observable<{ token: string }> {

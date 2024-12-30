@@ -1,0 +1,61 @@
+/* CSS for user management banner */
+.user-management-banner {
+    padding: 14px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #D8F1AF;
+}
+
+.banner-item {
+    margin: 4px 0;
+    padding: 6px 20px;
+    width: 200px;
+    background-color: #fff;
+}
+
+.banner-item-role {
+    color: #8f8c8c;
+    font-size: 14px;
+}
+
+.banner-item-main {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.role-total {
+    font-size: 25px;
+}
+
+.role-percent {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.user-management-banner .banner-item:nth-child(1) .role-total {
+    color: green;
+}
+
+.user-management-banner .banner-item:nth-child(1) .role-percent {
+    background-color: #8edb8e;
+}
+
+.user-management-banner .banner-item:nth-child(2) .role-total {
+    color: #00BCD4;
+}
+
+.user-management-banner .banner-item:nth-child(2) .role-percent {
+    background-color: #00BCD4;
+}
+
+.user-management-banner .banner-item:nth-child(3) .role-total {
+    color: rgb(63, 61, 228);
+}
+
+.user-management-banner .banner-item:nth-child(3) .role-percent {
+    background-color: rgb(149, 148, 233);
+}

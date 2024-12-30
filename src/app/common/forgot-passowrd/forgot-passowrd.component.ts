@@ -1,11 +1,9 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmailServiceService } from '../../services/email-service.service';
+import { EmailServiceService } from '../../services/common/email-service.service';
 import { ToastServiceService } from '../../services/utilities/toast-service.service';
-import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { AuthenServiceService } from '../../services/authen-service.service';
 import { SprinnerLoadingService } from '../../services/utilities/sprinner-loading.service';
+import { NavigationServiceService } from '../../services/common/navigation-service.service';
 
 @Component({
   selector: 'app-forgot-passowrd',
@@ -24,12 +22,10 @@ export class ForgotPassowrdComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private emailService: EmailServiceService,
-    private authenService: AuthenServiceService,
     private toastMessageService: ToastServiceService,
-    private overlayService: OverlayServiceService,
     private spinnerLoadingService: SprinnerLoadingService,
+    private navigationService: NavigationServiceService
   ) {
     this.forgotPasswordForm = this.fb.group({
       email: [``, [Validators.required, Validators.email]],
@@ -90,7 +86,7 @@ export class ForgotPassowrdComponent implements OnInit {
     }
 
     sessionStorage.setItem('code_email', this.forgotPasswordForm.get('authenticationCode')?.value);
-    this.router.navigate(['./reset-password']);
+    this.navigationService.navigate('./reset-password');
   }
 
 }

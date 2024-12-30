@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormName } from './../../../enums/form-name.enum';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OverlayServiceService } from '../../../services/utilities/overlay-service.service';
 import { User } from '../../../models/user.model';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
+import { BaseOverlayComponent } from '../../../common/base-overlay/base-overlay.component';
+import { FormAction } from '../../../enums/form-action.enum';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-create-new-user',
@@ -13,13 +15,7 @@ import { ToastServiceService } from '../../../services/utilities/toast-service.s
     '../../../../assets/styles/form.css'
   ]
 })
-export class CreateNewUserComponent {
-
-  // Output to share data to admin dashboard component
-  @Output() dataEvent: EventEmitter<string> = new EventEmitter();
-
-  // Input to recieve data from admin dashboad component
-  @Input() isCreateUserFormVisible!: boolean;
+export class CreateNewUserComponent extends BaseOverlayComponent {
 
   createUserForm!: FormGroup;
 
@@ -35,6 +31,7 @@ export class CreateNewUserComponent {
     private userManagementService: UserManagementServiceService,
     private toastService: ToastServiceService
   ) {
+    super();
     this.createUserForm = this.fb.group({
       name: [``, [Validators.required, Validators.minLength(6)]],
       role: [`1`, [Validators.required]],
@@ -44,10 +41,9 @@ export class CreateNewUserComponent {
     });
   }
 
-  // Function to close create user form
-  public closeCreateUserForm(): void {
-    this.isCreateUserFormVisible = false;
-    this.dataEvent.emit('close');
+  // Function to close form
+  public override closeForm(): void {
+    this.dataEvent.emit({ formName: FormName.AdminCreateUser, action: FormAction.CLOSE });
   }
 
   // Function to submit form 
@@ -69,11 +65,8 @@ export class CreateNewUserComponent {
         .subscribe({
           next: (res) => {
             this.toastService.showSuccess('Create user succesfully!');
-            this.isCreateUserFormVisible = false;
-            this.dataEvent.emit('create_success');
           },
           error: (err) => {
-            this.isCreateUserFormVisible = false;
             console.error(err.message);
           }
         });

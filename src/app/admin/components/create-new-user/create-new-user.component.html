@@ -1,4 +1,4 @@
-<div class="contain-create-user" (click)="closeCreateUserForm()">
+<app-base-overlay (click)="closeForm()">
     <form id="createUserForm" class="user-form" [formGroup]="createUserForm" (click)="$event.stopPropagation()"
         (submit)="onSubmit()">
         <h2 class="create-user-title">Create new user</h2>
@@ -78,9 +78,9 @@
         </div>
 
         <div class="conatin-btns">
-            <button id="btnCancelCreateUser" class="bl-button-hover" (click)="closeCreateUserForm()">Cancel</button>
+            <button id="btnCancelCreateUser" class="bl-button-hover" (click)="closeForm()">Cancel</button>
             <button id="btnConfirmCreateUser" class="bl-button-hover"
                 [disabled]="createUserForm.invalid">Confirm</button>
         </div>
     </form>
-</div>
+</app-base-overlay>

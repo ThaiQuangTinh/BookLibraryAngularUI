@@ -1,11 +1,10 @@
-import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ToastServiceService } from '../../services/utilities/toast-service.service';
 import { ConfirmationDialogService } from '../../services/utilities/confirmation-dialog.service';
 import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
 import { ExportTemplateComponent } from '../../common/popup/export-template/export-template.component';
-import { ImportTemplateComponent } from '../../common/popup/import-template/import-template.component';
 import { Book } from '../../models/book.model';
+import { BookManagementServiceService } from '../../services/librarian/book-management-service.service';
 
 @Component({
   selector: 'app-book-management',
@@ -34,10 +33,18 @@ export class BookManagementComponent implements OnInit {
   // Variable to contain data of book (send to edit book form)
   bookDataToEditBookForm!: Book;
 
+  //  ==== VARIABLES FOR IMPORT TEMPLATE FORM ====
+  // Variable contain data from export template component
+  public recievedDataFromImportTemplateForm: any;
+
+  // Varriables to show/hiden export template component
+  public isImportTemplateFormVisible: boolean = false;
+
   constructor(
     private toastService: ToastServiceService,
     private confirmDialogService: ConfirmationDialogService,
-    private overlayService: OverlayServiceService
+    private overlayService: OverlayServiceService,
+    private bookManagementService: BookManagementServiceService
   ) {
 
   }
@@ -88,14 +95,38 @@ export class BookManagementComponent implements OnInit {
   }
 
 
+  // ===== FUNCTIONS FOR IMPORT TEMPLATE FORM ====
+  public onShowImportTemplateForm(): void {
+    this.isImportTemplateFormVisible = true;
+  }
+
+  // Functions to recive data from child component
+  public onReceiveDataFromImportTemplateForm(data: string): void {
+    this.recievedDataFromImportTemplateForm = data;
+
+    if (data === 'close') {
+      this.isImportTemplateFormVisible = false;
+    } else if (data === 'create_success') {
+      this.isImportTemplateFormVisible = false;
+    }
+  }
+
   // Function to show export book template
   public onShowExportBookTemplate(): void {
     this.overlayService.open(ExportTemplateComponent);
   }
 
-  // Function to show import books template
-  public onShowImportBookTemplate(): void {
-    this.overlayService.open(ImportTemplateComponent);
+  // ===================
+  public test(): void {
+    this.bookManagementService.getAllBook()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: () => {
+
+        }
+      })
   }
 
 }

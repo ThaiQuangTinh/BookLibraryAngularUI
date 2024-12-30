@@ -1,15 +1,12 @@
 import { ConfirmationDialogService } from '../../services/utilities/confirmation-dialog.service';
-import { Router } from '@angular/router';
 import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { UserProfileComponent } from '../popup/user-profile/user-profile.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastServiceService } from '../../services/utilities/toast-service.service';
-import { SpinnerComponent } from '../spinner/spinner.component';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthenServiceService } from '../../services/authen-service.service';
+import { AuthenServiceService } from '../../services/common/authen-service.service';
 import { SprinnerLoadingService } from '../../services/utilities/sprinner-loading.service';
 import { User } from '../../models/user.model';
-import { UserManagementServiceService } from '../../services/user-management-service.service';
+import { UserManagementServiceService } from '../../services/admin/user-management-service.service';
+import { NavigationServiceService } from '../../services/common/navigation-service.service';
 
 @Component({
   selector: 'app-header',
@@ -30,21 +27,22 @@ export class HeaderComponent implements OnInit {
   recievedDataFromUserProfileForm: any;
 
   constructor(
-    private router: Router,
     public overlayService: OverlayServiceService,
-    private toastService: ToastServiceService,
     private authenService: AuthenServiceService,
     private confirmDialogService: ConfirmationDialogService,
     private spinnerLoadingService: SprinnerLoadingService,
-    private userManagementService: UserManagementServiceService
+    private userManagementService: UserManagementServiceService,
+    private navigationService: NavigationServiceService
   ) {
   
   }
 
+  // Function to run when component init
   ngOnInit(): void {
     this.fetchUserInfor();
   }
 
+  // Function to toggle sidenav
   public toggleSidenav() {
     this.sidenav.toggle();  
   }
@@ -70,7 +68,7 @@ export class HeaderComponent implements OnInit {
 
         setTimeout(() => {
           this.overlayService.close();
-          this.router.navigate(['\login']);
+          this.navigationService.navigate('\login');
         }, 300);
       }
     );
@@ -100,4 +98,5 @@ export class HeaderComponent implements OnInit {
       this.fetchUserInfor();
     }
   }
+
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OverlayServiceService } from '../../../services/utilities/overlay-service.service';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-create-book',

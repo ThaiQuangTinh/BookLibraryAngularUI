@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
-import { UserManagementServiceService } from '../../../services/user-management-service.service';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
+import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
 
 @Component({
   selector: 'app-edit-user',

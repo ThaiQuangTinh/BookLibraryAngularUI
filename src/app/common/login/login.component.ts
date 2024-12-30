@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { OverlayServiceService } from '../../services/utilities/overlay-service.service';
-import { AuthenServiceService } from '../../services/authen-service.service';
+import { AuthenServiceService } from '../../services/common/authen-service.service';
 import { SprinnerLoadingService } from '../../services/utilities/sprinner-loading.service';
+import { NavigationServiceService } from '../../services/common/navigation-service.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,7 @@ import { SprinnerLoadingService } from '../../services/utilities/sprinner-loadin
 })
 export class LoginComponent {
 
+  // Variable to store form
   loginForm!: FormGroup;
 
   // Variable control status of password (show/hide)
@@ -26,9 +27,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private overlayService: OverlayServiceService,
     private authenService: AuthenServiceService,
-    private spinnerLoadingService: SprinnerLoadingService
+    private spinnerLoadingService: SprinnerLoadingService,
+    public navigationService: NavigationServiceService
   ) {
     // Initial form
     this.loginForm = this.fb.group({
@@ -67,20 +68,7 @@ export class LoginComponent {
         }
 
         // Navigate base on role
-        switch (decodedData.roleId) {
-          case 1: {
-            this.navigateTo('/admin-dashboard');
-            break;
-          }
-          case 2: {
-            this.navigateTo('./librarian-dashboard/book-management');
-            break;
-          }
-          case 3: {
-            this.navigateTo('./reader-dashboard/home');
-            break;
-          }
-        }
+        this.navigationService.navigateByRoleId(decodedData.roleId);
       },
       error: (err) => {
         this.spinnerLoadingService.close();
@@ -88,16 +76,10 @@ export class LoginComponent {
         if (err.status === 404) {
           this.loginError = 'Wrong username or password!';
         } else {
-          this.loginError = err;
+          console.error(err);
+          this.loginError = 'Login failed. Please try again!';
         }
       }
-    });
-  }
-
-  // Function to navigate to component 
-  private navigateTo(url: string) {
-    this.router.navigate([`${url}`]).then(() => {
-      window.location.reload()
     });
   }
 

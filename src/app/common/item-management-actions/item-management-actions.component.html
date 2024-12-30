@@ -1,0 +1,23 @@
+<div class="iten-management-actions">
+    <div class="contain-title">
+        <h3>User management</h3>
+        <p>Find information for all users here</p>
+    </div>
+
+    <div class="contain-btn">
+        <div id="btnExportTemplate" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminExportUserTemplate)">
+            <i class="fa-solid fa-download"></i>
+            <span>User tenmplate</span>
+        </div>
+
+        <div id="btnImportUsers" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminImportUsers)">
+            <i class="fa-solid fa-upload"></i>
+            <span>Inport users</span>
+        </div>
+
+        <div id="btnCreateNewUser" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminCreateUser)">
+            <i class="fa-solid fa-plus"></i>
+            <span>Create new user</span>
+        </div>
+    </div>
+</div>

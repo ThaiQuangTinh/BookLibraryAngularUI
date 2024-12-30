@@ -1,7 +1,7 @@
 .sidenav_container {
     min-width: 60px;
-    /* height: calc(100vh - 200px); */
     height: 100vh;
+    z-index: 100;
 }
 
 .sidenav_container .mat-list-item {

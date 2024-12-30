@@ -1,6 +1,5 @@
-<div *ngIf="isImportTemplateFormVisible" class="contain-user-file-fun" (click)="closeImportTemplateForm()">
-
-    <div class="user-file-fun" (click)="$event.stopPropagation()">
+<app-base-overlay (click)="closeForm()">
+    <div class="user-file-fun">
         <h2 class="title">Import user list</h2>
 
         <div class="contain-icon">
@@ -20,10 +19,8 @@
         </div>
 
         <div class="contain-button">
-            <button (click)="closeImportTemplateForm()" class="bl-button-hover">Cancel</button>
+            <button (click)="closeForm()" class="bl-button-hover">Cancel</button>
             <button (click)="onImportUserToApp()" class="bl-button-hover">Import</button>
         </div>
     </div>
-
-
-</div>
+</app-base-overlay>

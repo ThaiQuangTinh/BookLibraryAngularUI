@@ -11,7 +11,7 @@
             <span>Boook tenmplate</span>
         </div>
 
-        <div (click)="onShowImportBookTemplate()" id="btnImportBooks" class="btn-for-book-management bl-button-hover">
+        <div (click)="onShowImportTemplateForm()" id="btnImportBooks" class="btn-for-book-management bl-button-hover">
             <i class="fa-solid fa-upload"></i>
             <span>Inport books</span>
         </div>
@@ -20,6 +20,8 @@
             <i class="fa-solid fa-plus"></i>
             <span>Create new book</span>
         </div>
+
+        <button (click)="test()">Test</button>
     </div>
 </div>
 
@@ -114,3 +116,5 @@
     (dataEvent)="onReceiveDataFromEditBookForm($event)">
 
 </app-edit-book>
+
+<!-- Import template component -->
