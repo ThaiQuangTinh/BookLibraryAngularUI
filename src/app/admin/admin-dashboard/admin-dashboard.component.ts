@@ -15,6 +15,8 @@ export class AdminDashboardComponent implements OnInit {
 
   public FormName = FormName;
 
+  public test: string ="jha";
+
   // Variable to share data to admin banner component
   public userRoleStatistics = [
     { role: "Admin", total: 0, percent: 0 },
