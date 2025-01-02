@@ -1,3 +1,4 @@
+import { FormManagementServiceService } from './../../../services/common/form-management-service.service';
 import { HttpClient } from '@angular/common/http';
 import { OverlayServiceService } from '../../../services/utilities/overlay-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ export class ExportTemplateComponent extends BaseOverlayComponent implements OnI
   public roleId!: number;
 
   constructor(
-    private exportExcelTemplateService: ExportExcelTemplateService
+    private exportExcelTemplateService: ExportExcelTemplateService,
+    private formManagementService: FormManagementServiceService
   ) {
     super();
   }
@@ -30,7 +32,7 @@ export class ExportTemplateComponent extends BaseOverlayComponent implements OnI
 
   // Function to close form
   public override closeForm(): void {
-    this.dataEvent.emit({ formName: FormName.AdminExportUserTemplate, action: FormAction.CLOSE });
+    this.formManagementService.closeForm(FormName.AdminExportUserTemplate);
   }
 
   // Function to download template base on role
@@ -44,6 +46,8 @@ export class ExportTemplateComponent extends BaseOverlayComponent implements OnI
       field = ['bookname', 'email', 'fullname', 'roleId', 'phoneNumber'];
       this.exportExcelTemplateService.exportTemplate(field, 'Book_Template.xlsx');
     }
+
+    this.closeForm();
   }
 
 }

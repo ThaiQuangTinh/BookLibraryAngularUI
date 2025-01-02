@@ -7,6 +7,8 @@ import { SprinnerLoadingService } from '../../services/utilities/sprinner-loadin
 import { User } from '../../models/user.model';
 import { UserManagementServiceService } from '../../services/admin/user-management-service.service';
 import { NavigationServiceService } from '../../services/common/navigation-service.service';
+import { FormName } from '../../enums/form-name.enum';
+import { FormAction } from '../../enums/form-action.enum';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +36,7 @@ export class HeaderComponent implements OnInit {
     private userManagementService: UserManagementServiceService,
     private navigationService: NavigationServiceService
   ) {
-  
+
   }
 
   // Function to run when component init
@@ -44,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   // Function to toggle sidenav
   public toggleSidenav() {
-    this.sidenav.toggle();  
+    this.sidenav.toggle();
   }
 
   // Function to show user profile through overlay service
@@ -88,15 +90,14 @@ export class HeaderComponent implements OnInit {
   }
 
   // Functions to recive data from child component
-  public onReceiveDataFromUserProfileForm(data: string): void {
+  public onReceiveDataFromUserProfileForm(formName: FormName, formAction: FormAction, data?: any): void {
     this.recievedDataFromUserProfileForm = data;
 
-    if (data === 'close') {
-      this.isUserProfileFormVisible = false;
-    } else if (data === 'update_success') {
-      this.isUserProfileFormVisible = false;
+    if (formAction == FormAction.RELOAD) {
       this.fetchUserInfor();
     }
+
+    this.isUserProfileFormVisible = false;
   }
 
 }

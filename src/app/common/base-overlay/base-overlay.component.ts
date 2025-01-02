@@ -15,7 +15,7 @@ export class BaseOverlayComponent {
   @Output() dataEvent: EventEmitter<{ formName: FormName, action: FormAction, data?: any }> = new EventEmitter();
 
   public closeForm(): void {
-
+    
   }
 
 }

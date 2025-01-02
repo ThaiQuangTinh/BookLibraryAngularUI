@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormName } from '../../enums/form-name.enum';
+import { FormManagementServiceService } from '../../services/common/form-management-service.service';
 
 @Component({
   selector: 'app-item-management-actions',
@@ -8,16 +9,27 @@ import { FormName } from '../../enums/form-name.enum';
 })
 export class ItemManagementActionsComponent {
 
-  @Output() dataEvent: EventEmitter<FormName> = new EventEmitter();
-
   public FormName = FormName;
 
-  constructor() {
+  constructor(
+    public formManagementService: FormManagementServiceService
+  ) {
 
   }
 
-  public openForm(formName: FormName): void {
-    this.dataEvent.emit(formName);
+  // Function to open form by name
+  public openFormByName(formName: FormName): void {
+    switch (formName) {
+      case FormName.AdminExportUserTemplate:
+        this.formManagementService.openForm(FormName.AdminExportUserTemplate);
+        break;
+      case FormName.AdminImportUsers:
+        this.formManagementService.openForm(FormName.AdminImportUsers);
+        break;
+      case FormName.AdminCreateUser:
+        this.formManagementService.openForm(FormName.AdminCreateUser);
+        break;
+    }
   }
 
 }

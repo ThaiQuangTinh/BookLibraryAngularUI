@@ -1,4 +1,4 @@
-<div *ngIf="isUserProfileFormVisible" class="contain-user-profile" (click)="closeUserProfileForm()">
+<app-base-overlay (click)="closeForm()">
     <form id="userProfile" [formGroup]="userProfileForm" (submit)="onSubMit()" (click)="$event.stopPropagation()">
         <h3>Profile</h3>
 
@@ -68,9 +68,9 @@
                     <p>Edit profile</p>
                 </div>
 
-                <button *ngIf="isEdit" (click)="closeUserProfileForm()" type="button" id="btnCancelEdit">Cancel</button>
+                <button *ngIf="isEdit" (click)="closeForm()" type="button" id="btnCancelEdit">Cancel</button>
                 <button *ngIf="isEdit" type="submit" id="btnSaveProfile">Save profile</button>
             </div>
         </div>
     </form>
-</div>
+</app-base-overlay>

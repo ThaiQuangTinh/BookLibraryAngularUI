@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
 import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
+import { BaseOverlayComponent } from '../../../common/base-overlay/base-overlay.component';
+import { FormName } from '../../../enums/form-name.enum';
+import { FormAction } from '../../../enums/form-action.enum';
+import { FormManagementServiceService } from '../../../services/common/form-management-service.service';
+import { RoleHeplperServiceService } from '../../../services/common/role-heplper-service.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -12,31 +17,25 @@ import { UserManagementServiceService } from '../../../services/admin/user-manag
     '../../../../assets/styles/form.css'
   ]
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent extends BaseOverlayComponent implements OnInit {
 
-  // Share data to admin dashboard component
-  @Output() dataEvent: EventEmitter<string> = new EventEmitter();
-
-  // Inputs decorator for receive data from admin dashboard component
-  @Input() isEditUserFormVisible: boolean = false;
-
-  @Input() userData!: User;
+  userData!: User;
 
   // editUserForm is FormGroup
   editUserForm!: FormGroup;
 
   // Variable define roles of user
-  roles: any[] = [
-    { id: 1, name: 'admin' },
-    { id: 2, name: 'librarian' },
-    { id: 3, name: 'reader' },
-  ];
+  roles: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementServiceService,
-    private toastService: ToastServiceService
+    private toastService: ToastServiceService,
+    private formManagementService: FormManagementServiceService,
+    private roleHelperService: RoleHeplperServiceService
   ) {
+    super();
+    this.roles = this.roleHelperService.getRoles();
     // Initial form
     this.editUserForm = this.fb.group({
       username: [''],
@@ -48,6 +47,7 @@ export class EditUserComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.userData = this.formManagementService.getForm(FormName.AdminEditUser).data;
     // Set value for form (with data receive from parent)
     this.editUserForm.setValue({
       username: this.userData.username,
@@ -72,11 +72,12 @@ export class EditUserComponent implements OnInit {
       this.userManagementService.updateUserInfo(newUser)
         .subscribe({
           next: (res) => {
-            this.isEditUserFormVisible = false;
+            this.dataEvent.emit({ formName: FormName.AdminEditUser, action: FormAction.EDIT });
+            this.closeForm();
             this.toastService.showSuccess('Edit user successfully');
-            this.dataEvent.emit('edit_success');
           },
           error: (err) => {
+            this.closeForm();
             this.toastService.showError('Error editting profile');
           }
         });
@@ -84,9 +85,8 @@ export class EditUserComponent implements OnInit {
   }
 
   // Function to close this form
-  public closeEditUserForm(): void {
-    this.isEditUserFormVisible = false;
-    this.dataEvent.emit('close');
+  public override closeForm(): void {
+    this.formManagementService.closeForm(FormName.AdminEditUser);
   }
 
 }

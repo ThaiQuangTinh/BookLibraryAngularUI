@@ -1,53 +1,54 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
 import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
+import { BaseOverlayComponent } from '../../base-overlay/base-overlay.component';
+import { FormName } from '../../../enums/form-name.enum';
+import { FormAction } from '../../../enums/form-action.enum';
+import { FormManagementServiceService } from '../../../services/common/form-management-service.service';
 
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
   styleUrl: './delete-dialog.component.css'
 })
-export class DeleteDialogComponent implements OnInit {
+export class DeleteDialogComponent extends BaseOverlayComponent implements OnInit {
 
-  // Share data to admin dashboard component
-  @Output() dataEvent: EventEmitter<string> = new EventEmitter();
-
-  // Inputs decorator for receive data from admin dashboard component
-  @Input() isDeleteDialogVisible: boolean = false;
-
-  @Input() usernames!: any;
-
+  usernames: string[] = [];
 
   constructor(
     private userManagementService: UserManagementServiceService,
-    private toastService: ToastServiceService
+    private toastService: ToastServiceService,
+    private formManagementService: FormManagementServiceService
   ) {
-
+    super();
   }
 
   public ngOnInit(): void {
-
+    this.usernames = this.formManagementService.getForm(FormName.AdminDeleteUserDialog).data;
   }
 
   public onSubmit(): void {
+    this.deleteUser();
+  }
+
+  // Function to deleteUser
+  public deleteUser(): void {
     this.userManagementService.deleteUser(this.usernames)
       .subscribe({
         next: (res) => {
-          this.isDeleteDialogVisible = false;
+          this.dataEvent.emit({ formName: FormName.AdminDeleteUserDialog, action: FormAction.DELETE });
+          this.closeForm();
           this.toastService.showSuccess('Delete successfully');
-          this.dataEvent.emit('delete_success');
         },
         error: (err) => {
-          this.isDeleteDialogVisible = false;
           console.error(err.message);
         }
       });
   }
 
   // Function to close this form
-  public closeDeleteDialogForm(): void {
-    this.isDeleteDialogVisible = false;
-    this.dataEvent.emit('close');
+  public override closeForm(): void {
+    this.formManagementService.closeForm(FormName.AdminDeleteUserDialog);
   }
 
 }

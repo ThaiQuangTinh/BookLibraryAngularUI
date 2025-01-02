@@ -1,5 +1,4 @@
-<div *ngIf="isDeleteDialogVisible" class="conatain-delete-dialog" (click)="closeDeleteDialogForm()">
-
+<app-base-overlay (click)="closeForm()">
     <div class="delete-dialog" (click)="$event.stopPropagation()">
         <div class="contain-warning-icon">
             <i class="fa-solid fa-exclamation"></i>
@@ -9,9 +8,8 @@
         <p class="description-title">This will remove from the application</p>
 
         <div class="contain-dialog-button">
-            <button class="bl-button-hover" id="btnCancel" (click)="closeDeleteDialogForm()">Cancel</button>
+            <button class="bl-button-hover" id="btnCancel" (click)="closeForm()">Cancel</button>
             <button class="bl-button-hover" id="btnDelete" (click)="onSubmit()">Delete</button>
         </div>
     </div>
-
-</div>
+</app-base-overlay>

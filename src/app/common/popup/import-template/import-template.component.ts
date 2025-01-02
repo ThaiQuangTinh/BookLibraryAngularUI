@@ -1,11 +1,12 @@
 import { User } from './../../../models/user.model';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
 import { ExcelReaderService } from '../../../services/common/excel-reader.service';
 import { BaseOverlayComponent } from '../../base-overlay/base-overlay.component';
 import { FormName } from '../../../enums/form-name.enum';
 import { FormAction } from '../../../enums/form-action.enum';
 import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
+import { FormManagementServiceService } from '../../../services/common/form-management-service.service';
 
 @Component({
   selector: 'app-import-template',
@@ -23,14 +24,15 @@ export class ImportTemplateComponent extends BaseOverlayComponent {
   constructor(
     private toastMessageService: ToastServiceService,
     private excelReaderService: ExcelReaderService,
-    private userManagementService: UserManagementServiceService
+    private userManagementService: UserManagementServiceService,
+    private formManagementService: FormManagementServiceService
   ) {
     super();
   }
 
   // Function to close form
   public override closeForm(): void {
-    this.dataEvent.emit({ formName: FormName.AdminImportUsers, action: FormAction.CLOSE });
+    this.formManagementService.closeForm(FormName.AdminImportUsers);
   }
 
   // Function to check change of input file
@@ -89,9 +91,12 @@ export class ImportTemplateComponent extends BaseOverlayComponent {
     this.userManagementService.createNewUser(this.users)
       .subscribe({
         next: (res) => {
+          this.dataEvent.emit({ formName: FormName.AdminImportUsers, action: FormAction.CREATE });
+          this.closeForm();
           this.toastMessageService.showSuccess('Import user successfully');
         },
         error: (err) => {
+          this.closeForm();
           this.toastMessageService.showError(err.message);
         }
       })

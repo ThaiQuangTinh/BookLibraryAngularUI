@@ -23,7 +23,7 @@
 </header>
 
 <!-- Userprofile component -->
-<app-user-profile *ngIf="isUserProfileFormVisible" [user]="user" [isUserProfileFormVisible]="isUserProfileFormVisible"
-    (dataEvent)="onReceiveDataFromUserProfileForm($event)">
+<app-user-profile *ngIf="isUserProfileFormVisible" [user]="user" 
+    (dataEvent)="onReceiveDataFromUserProfileForm($event.formName, $event.action)">
 
 </app-user-profile>

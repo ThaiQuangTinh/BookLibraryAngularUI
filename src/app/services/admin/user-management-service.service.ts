@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { User } from '../../models/user.model';
+import { AuthenServiceService } from '../common/authen-service.service';
+import { Role } from '../../enums/role-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +13,16 @@ export class UserManagementServiceService {
   // Define base api url
   private baseApiUrl: string = 'http://localhost:8100/v3';
 
-  // Authen token
-  private authenToken: string | null = null;
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authenService: AuthenServiceService
   ) {
 
   }
 
-
-  // Function to get token from session storage
-  private getAuthToken(): string {
-    if (!this.authenToken) {
-      this.authenToken = sessionStorage.getItem('authen_token');
-      if (!this.authenToken) {
-        throw new Error('Token was not found');
-      }
-    }
-
-    return this.authenToken;
-  }
-
   // Function to create header
   private createHeader(): HttpHeaders {
-    const token = this.getAuthToken();
+    const token = this.authenService.getToken() || '';
 
     return new HttpHeaders({
       'Authorization': token
@@ -47,37 +34,33 @@ export class UserManagementServiceService {
     return data.map(item => new User(item));
   }
 
-  // Service to get users info (base on page and record perpage)
-  public getUsersInfoByRoleName(roleName: string, page: number, recordsPerPage: number): Observable<User[]> {
+  private getUsersApiByRoleName(roleName: Role): string {
     let apiUrlBaseOnRole = `${this.baseApiUrl}/get-infos`;
 
     // Set api base on role name
     switch (roleName) {
-      case 'admin': {
+      case Role.Admin:
         apiUrlBaseOnRole = `${this.baseApiUrl}/get-admin-infos`;
         break;
-      }
-      case 'librarian': {
+      case Role.Librarian:
         apiUrlBaseOnRole = `${this.baseApiUrl}/get-librarian-infos`;
         break;
-      }
-      case 'reader': {
+      case Role.Reader:
         apiUrlBaseOnRole = `${this.baseApiUrl}/get-reader-infos`;
         break;
-      }
-      default: {
+      default:
         apiUrlBaseOnRole = `${this.baseApiUrl}/get-infos`;
-      }
     }
 
+    return apiUrlBaseOnRole;
+  }
+
+  // Service to get users info (base on page and record perpage)
+  public getUsersInfoByRoleName(roleName: Role, page: number, recordsPerPage: number): Observable<User[]> {
     // Call api to get user infos
-    return this.http.post<any>(apiUrlBaseOnRole,
-      {
-        page, recordsPerPage
-      },
-      {
-        headers: this.createHeader()
-      }
+    return this.http.post<any>(this.getUsersApiByRoleName(roleName),
+      { page, recordsPerPage },
+      { headers: this.createHeader() }
     ).pipe(
       // Convert response to User array
       map(response => this.convertToUserArray(response.data))

@@ -1,11 +1,12 @@
 import { FormName } from './../../../enums/form-name.enum';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user.model';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
 import { BaseOverlayComponent } from '../../../common/base-overlay/base-overlay.component';
 import { FormAction } from '../../../enums/form-action.enum';
 import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
+import { FormManagementServiceService } from '../../../services/common/form-management-service.service';
 
 @Component({
   selector: 'app-create-new-user',
@@ -29,6 +30,7 @@ export class CreateNewUserComponent extends BaseOverlayComponent {
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementServiceService,
+    private formManagementService: FormManagementServiceService,
     private toastService: ToastServiceService
   ) {
     super();
@@ -43,7 +45,7 @@ export class CreateNewUserComponent extends BaseOverlayComponent {
 
   // Function to close form
   public override closeForm(): void {
-    this.dataEvent.emit({ formName: FormName.AdminCreateUser, action: FormAction.CLOSE });
+    this.formManagementService.closeForm(FormName.AdminCreateUser);
   }
 
   // Function to submit form 
@@ -58,16 +60,17 @@ export class CreateNewUserComponent extends BaseOverlayComponent {
         phoneNumber: this.createUserForm.get('phoneNumber')?.value,
       });
 
-      console.log(newUser);
-
       // Call service to create new user
       this.userManagementService.createNewUser(newUser)
         .subscribe({
           next: (res) => {
+            this.dataEvent.emit({ formName: FormName.AdminCreateUser, action: FormAction.CREATE });
             this.toastService.showSuccess('Create user succesfully!');
+            this.closeForm();
           },
           error: (err) => {
             console.error(err.message);
+            this.closeForm();
           }
         });
     }

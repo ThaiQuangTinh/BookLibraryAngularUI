@@ -3,7 +3,7 @@
         <div class="banner-item-role">{{item.role}}</div>
         <div class="banner-item-main">
             <div class="role-total">{{item.total}}</div>
-            <div class="role-percent">{{item.percent}}</div>
+            <div class="role-percent">{{item.percent | decimalPrecision:2}}</div>
         </div>
     </div>
 </div>

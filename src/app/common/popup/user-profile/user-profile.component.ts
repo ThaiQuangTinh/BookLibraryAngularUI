@@ -4,22 +4,20 @@ import { OverlayServiceService } from '../../../services/utilities/overlay-servi
 import { User } from '../../../models/user.model';
 import { ToastServiceService } from '../../../services/utilities/toast-service.service';
 import { UserManagementServiceService } from '../../../services/admin/user-management-service.service';
+import { BaseOverlayComponent } from '../../base-overlay/base-overlay.component';
+import { FormName } from '../../../enums/form-name.enum';
+import { Action } from 'rxjs/internal/scheduler/Action';
+import { FormAction } from '../../../enums/form-action.enum';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent extends BaseOverlayComponent implements OnInit {
 
   // Input to recive data from header component
   @Input() user!: User;
-
-  // Input decorator for receive data from admin dashboard component
-  @Input() isUserProfileFormVisible: boolean = false;
-
-  // Share data to admin dashboard component
-  @Output() dataEvent: EventEmitter<string> = new EventEmitter();
 
   userProfileForm!: FormGroup;
 
@@ -38,6 +36,7 @@ export class UserProfileComponent implements OnInit {
     private toastService: ToastServiceService,
     private userManagementService: UserManagementServiceService
   ) {
+    super();
     // Initial form
     this.userProfileForm = this.fb.group({
       fullname: [{ value: '', disabled: !this.isEdit }, [Validators.required]],
@@ -51,9 +50,9 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  // Method to hide create new user popup
-  hideUserProfilePopup(): void {
-    this.overlayService.close();
+  // Function to close form
+  public override closeForm(): void {
+    this.dataEvent.emit({ formName: FormName.UserProfile, action: FormAction.CLOSE });
   }
 
   // Function to change status of inputs
@@ -133,9 +132,8 @@ export class UserProfileComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.isEdit = false;
-            this.isUserProfileFormVisible = false;
+            this.dataEvent.emit({formName: FormName.UserProfile, action: FormAction.RELOAD});
             this.toastService.showSuccess('Profile updated successfully');
-            this.dataEvent.emit('update_success');
           },
           error: (err) => {
             this.toastService.showError('Error updating profile');
@@ -143,12 +141,5 @@ export class UserProfileComponent implements OnInit {
         })
     }
   }
-
-  // Function to close this form
-  public closeUserProfileForm(): void {
-    this.isUserProfileFormVisible = false;
-    this.dataEvent.emit('close');
-  }
-
 
 }

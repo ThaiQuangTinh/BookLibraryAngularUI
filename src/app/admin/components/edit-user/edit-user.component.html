@@ -1,5 +1,5 @@
-<div *ngIf="isEditUserFormVisible" class="contain-edit-user" (click)="closeEditUserForm()">
-    <form id="editUserForm" class="user-form" [formGroup]="editUserForm" (submit)="onSubmit()"
+<app-base-overlay (click)="closeForm()">
+    <form id="editUserForm" class="user-form" [formGroup]="editUserForm"
         (click)="$event.stopPropagation()">
         <h2 class="edit-user-title">Edit user</h2>
 
@@ -58,8 +58,8 @@
         </div>
 
         <div class="conatin-btns">
-            <button (click)="closeEditUserForm()" id="btnCancelCreateUser" class="bl-button-hover">Cancel</button>
-            <button type="submit" id="btnConfirmCreateUser" class="bl-button-hover" [disabled]="editUserForm.invalid">Confirm</button>
+            <button (click)="closeForm()" id="btnCancelCreateUser" class="bl-button-hover">Cancel</button>
+            <button (click)="onSubmit()" type="submit" id="btnConfirmCreateUser" class="bl-button-hover" [disabled]="editUserForm.invalid">Confirm</button>
         </div>
     </form>
-</div>
+</app-base-overlay>

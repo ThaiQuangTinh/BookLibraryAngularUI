@@ -5,17 +5,20 @@
     </div>
 
     <div class="contain-btn">
-        <div id="btnExportTemplate" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminExportUserTemplate)">
+        <div id="btnExportTemplate" class="btn-for-user-management bl-button-hover"
+            (click)="openFormByName(FormName.AdminExportUserTemplate)">
             <i class="fa-solid fa-download"></i>
             <span>User tenmplate</span>
         </div>
 
-        <div id="btnImportUsers" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminImportUsers)">
+        <div id="btnImportUsers" class="btn-for-user-management bl-button-hover"
+            (click)="openFormByName(FormName.AdminImportUsers)">
             <i class="fa-solid fa-upload"></i>
             <span>Inport users</span>
         </div>
 
-        <div id="btnCreateNewUser" class="btn-for-user-management bl-button-hover" (click)="openForm(FormName.AdminCreateUser)">
+        <div id="btnCreateNewUser" class="btn-for-user-management bl-button-hover"
+            (click)="this.formManagementService.openForm(FormName.AdminCreateUser)">
             <i class="fa-solid fa-plus"></i>
             <span>Create new user</span>
         </div>

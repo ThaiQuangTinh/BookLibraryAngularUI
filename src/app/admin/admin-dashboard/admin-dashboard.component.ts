@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormName } from '../../enums/form-name.enum';
 import { UserManagementServiceService } from '../../services/admin/user-management-service.service';
 import { User } from '../../models/user.model';
+import { Role } from '../../enums/role-enum';
+import { FormManagementServiceService } from '../../services/common/form-management-service.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,24 +25,13 @@ export class AdminDashboardComponent implements OnInit {
   public totalAllRoles: number = 0;
 
   // Variable to contain data of each role
-  public allRoleList: User[] = [];
+  public users: User[] = [];
 
-  public adminList: User[] = [];
-
-  public librarianList: User[] = [];
-
-  public readerList: User[] = [];
-
-  // Varibale commons to control display status and data of form
-  public formState = {
-    [FormName.AdminExportUserTemplate]: { visible: false, data: null },
-    [FormName.AdminCreateUser]: { visible: false, data: null },
-    [FormName.AdminImportUsers]: { visible: false, data: null },
-    [FormName.AdminEditUser]: { visible: false, data: null },
-    [FormName.AdminDeleteDialog]: { visible: false, data: null }
-  };
+  // Variable to control current tab
+  public currentTab: Role = Role.All;
 
   constructor(
+    public formManagementService: FormManagementServiceService,
     private userManagementService: UserManagementServiceService
   ) {
 
@@ -48,36 +39,30 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserRoleStatistics();
+    this.loadUsers(Role.All);
   }
 
-  // Function to open form (receive request from item management actions component)
-  public openForm(adminFormName: FormName): void {
-    this.formState[adminFormName].visible = true;
-  }
-
-  // Function to receive data from forms
-  public onReceiveDataFromForm(adminFormName: FormName, action: FormAction, data?: any): void {
-    switch (action) {
-      case FormAction.CLOSE:
-        this.formState[adminFormName].visible = false;
-        break;
-
-      case FormAction.UPDATE:
-        console.log(`Updating data for ${adminFormName}:`, data);
-        break;
-
-      default:
-        console.warn(`Unhandled action "${action}" for form "${adminFormName}"`);
-    }
-  }
-
-  // Test
-  public test(): void {
-    this.userManagementService.getTotalCount().subscribe({
+  // Function to load user by role
+  public loadUsers(role: Role): void {
+    this.userManagementService.getUsersInfoByRoleName(role, 1, 10).subscribe({
       next: (res) => {
-        console.log(res);
+        this.users = res;
+      },
+      error: (err) => {
+        console.error(err.message);
       }
-    })
+    });
+  }
+
+  // Function to change role
+  public onTabChange(role: Role): void {
+    this.loadUsers(role);
+  }
+
+  // Function to update users
+  public reloadUsers(): void {
+    this.currentTab = Role.All;
+    this.loadUsers(this.currentTab);
   }
 
   // Call api and update data for admin banner
@@ -94,6 +79,13 @@ export class AdminDashboardComponent implements OnInit {
         this.totalAllRoles = data.total.adminTotal + data.total.librarianTotal + data.total.readerTotal;
       }
     });
+  }
+
+  // Function to receive data from forms
+  public onReceiveDataFromForm(formName: FormName, action: FormAction, data?: any): void {
+    if (action == FormAction.CREATE || action == FormAction.EDIT || action == FormAction.DELETE) {
+      this.reloadUsers();
+    }
   }
 
 }

@@ -1,7 +1,9 @@
 export enum FormName {
+    UserProfile = 'userProfile',
     AdminExportUserTemplate = 'exportUserTemplate',
     AdminImportUsers = 'importUsers',
     AdminCreateUser = 'createUser',
     AdminEditUser = 'editUser',
-    AdminDeleteDialog = 'deleteDialog'
+    AdminDeleteUserDialog = 'adminDeleteDialog'
 }
+

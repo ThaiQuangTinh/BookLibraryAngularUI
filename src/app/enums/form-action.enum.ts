@@ -1,5 +1,8 @@
 export enum FormAction {
     OPEN = 'open',
     CLOSE = 'close',
-    UPDATE = 'update',
+    CREATE = 'create',
+    EDIT = 'edit',
+    DELETE = 'delete',
+    RELOAD = 'reload'
 }
